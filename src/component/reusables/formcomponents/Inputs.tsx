@@ -7,8 +7,8 @@ type InputsProps = {
     labelOne:string;
     labelTwo?:string;
     placeholder:string;
-    addpasswordVisibility?:Boolean;
-    showPaswword?:Boolean;
+    addpasswordVisibility?:boolean;
+    showPaswword?:boolean;
     value:string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

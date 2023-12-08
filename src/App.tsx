@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Inputs } from './component/reusables/formcomponents/Inputs';
 import { Select } from './component/reusables/formcomponents/Select';
+import { Button } from './component/reusables/formcomponents/Button';
 
 type Option = {
   id: string;
@@ -71,9 +72,14 @@ const handleGenderSelect = (selectedOption: Option) => {
           onSelect={handleGenderSelect}
         />
         {selectedGender}
+
+        <Button 
+          label={'hello'}
+          styles='w-full border p-2 mt-2 bg-[dodgerblue] text-[white] rounded'
+          disabled={true}
+        />
       </div>
 
-     
     </>
   )
 }
