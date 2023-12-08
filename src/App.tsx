@@ -38,7 +38,7 @@ const handleGenderSelect = (selectedOption: Option) => {
           w-full border border-[#d8dae5] 
           pl-10 p-2.5
           hover:border-[#8F95B2] 
-          rounded-lg focus:outline-[#E47A53] 
+          focus:outline-[#E47A53] 
           focus:ring-3 focus:ring-[#F2BEAB] 
           txt-field-style peer text-gray-900 
           text-sm block  dark:bg-gray-700 dark:border-gray-600 
@@ -46,6 +46,8 @@ const handleGenderSelect = (selectedOption: Option) => {
           labelOne='Name'
           placeholder='Enter your name'
           labelTwo='Required'
+          addpasswordVisibility={true}
+          showPaswword={false}
           value={name}
           onChange={handleChange}
         />
