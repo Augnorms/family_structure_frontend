@@ -93,6 +93,8 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
           showPaswword={true}
           value={name}
           onChange={handleChange}
+          useIcons
+          iconUserPass
         />
         {name}
 

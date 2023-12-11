@@ -1,9 +1,14 @@
 import { FiEye } from "react-icons/fi";
 import { GoEyeClosed } from "react-icons/go";
+import { FaUser } from "react-icons/fa";
+import { FaUserLock } from "react-icons/fa";
 
 type InputsProps = {
     type: string;
     style: string;
+    useIcons?:boolean;
+    iconUser?:boolean;
+    iconUserPass?:boolean;
     labelOne:string;
     labelTwo?:string;
     placeholder:string;
@@ -27,6 +32,9 @@ export const Inputs = (props:InputsProps) => {
         </div>
 
         <div className="flex">
+          {props.useIcons ? <div className="w-10 h-10 rounded-full shadow-2xl border mr-2 flex justify-center items-center">
+          {props.iconUser ? <FaUser /> : props.iconUserPass ? <FaUserLock /> : ""}
+          </div> : <div></div>}
           <input 
           type={props.type}
           className={props.style}
