@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Inputs } from './component/reusables/formcomponents/Inputs';
 import { Select } from './component/reusables/formcomponents/Select';
 import { Button } from './component/reusables/formcomponents/Button';
+import { SuccessBlock } from './component/reusables/components/SuccessBlock';
+import { ErrorBlock } from './component/reusables/components/ErrorBlock';
+import { RadioButtont } from './component/reusables/formcomponents/RadioButtont';
+import {CheckBox} from './component/reusables/formcomponents/CheckBox';
 
 type Option = {
   id: string;
@@ -30,8 +34,46 @@ const handleGenderSelect = (selectedOption: Option) => {
   console.log(selectedOption);
 };
 
+const [stats, setstats] = useState<boolean>(false);
+
+const handleStats = ()=>{
+  setstats(!stats);
+  console.log(stats);
+};
+
+const [isCheckedYes, setIsCheckedYes] = useState<boolean>(false);
+const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
+
+  const handlRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id } = event.currentTarget;
+
+    if (id === 'yes') {
+      setIsCheckedYes(true);
+
+      setIsCheckedNo(false);
+    } else if (id === 'no') {
+      setIsCheckedNo(true);
+      setIsCheckedYes(false);
+    }
+  }
+
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const  handleSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const { id, checked } = event.currentTarget;
+  
+    setSelected((prevSelected) =>
+      checked ? [...prevSelected, id] : prevSelected.filter((item) => item !== id)
+    );
+  }
+
+  useEffect(() => {
+    console.log(selected);
+  })
+
   return (
     <>
+    <button onClick={handleStats}>click</button>
       <div className='p-2'>
           <Inputs 
           type='text' 
@@ -48,7 +90,7 @@ const handleGenderSelect = (selectedOption: Option) => {
           placeholder='Enter your name'
           labelTwo='Required'
           addpasswordVisibility={true}
-          showPaswword={false}
+          showPaswword={true}
           value={name}
           onChange={handleChange}
         />
@@ -78,6 +120,71 @@ const handleGenderSelect = (selectedOption: Option) => {
           styles='w-full border p-2 mt-2 bg-[dodgerblue] text-[white] rounded'
           disabled={true}
         />
+
+        {/* <SuccessBlock 
+         blockControl={stats}
+         message='success'  
+        /> */}
+
+        <ErrorBlock 
+         blockControl={stats}
+         message='Falied' 
+        />
+
+        <RadioButtont 
+          style='
+          focus:ring-[#F2BEAB] 
+          accent-pink-500
+          md:accent-pink-500
+          focus:accent-pink-500
+          '
+          label='Yes'
+          fieldid='yes'
+          labelStyle='text-gray-900 font-bold'
+          isChecked={isCheckedYes}
+          onSelect={handlRadio}
+        />
+
+        <RadioButtont 
+          style='
+          focus:ring-[#F2BEAB] 
+          accent-pink-500
+          md:accent-pink-500
+          focus:accent-pink-500
+          '
+          label='No'
+          fieldid='no'
+          labelStyle='text-gray-900 font-bold'
+          isChecked={isCheckedNo}
+          onSelect={handlRadio}
+        />
+
+        <CheckBox
+         style='
+         focus:ring-[#F2BEAB] 
+         accent-pink-500
+         md:accent-pink-500
+         focus:accent-pink-500
+         '
+         label='August'
+         fieldid='august'
+         labelStyle='text-gray-900 font-bold'
+         onSelect={handleSelected}
+        />
+
+        <CheckBox
+         style='
+         focus:ring-[#F2BEAB] 
+         accent-pink-500
+         md:accent-pink-500
+         focus:accent-pink-500
+         '
+         label='September'
+         fieldid='september'
+         labelStyle='text-gray-900 font-bold'
+         onSelect={handleSelected}
+        />
+
       </div>
 
     </>
