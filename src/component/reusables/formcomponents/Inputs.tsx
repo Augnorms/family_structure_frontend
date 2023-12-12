@@ -31,8 +31,8 @@ export const Inputs = (props:InputsProps) => {
           </label>
         </div>
 
-        <div className="flex">
-          {props.useIcons ? <div className="w-10 h-10 rounded-full shadow-2xl border mr-2 flex justify-center items-center">
+        <div className="flex relative">
+          {props.useIcons ? <div className="w-10 h-10 rounded-full shadow-md  mr-2 flex justify-center items-center">
           {props.iconUser ? <FaUser /> : props.iconUserPass ? <FaUserLock /> : ""}
           </div> : <div></div>}
           <input 
@@ -43,7 +43,7 @@ export const Inputs = (props:InputsProps) => {
           onChange={props.onChange}
           />
           {props.addpasswordVisibility ? (
-            <div className="border border-[#d8dae5] flex items-center p-2 cursor-pointer">
+            <div className="flex items-center p-2 cursor-pointer position absolute top-0 right-0 mt-1">
               {props.showPaswword ?
                  <FiEye />
               :

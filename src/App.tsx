@@ -6,6 +6,7 @@ import { SuccessBlock } from './component/reusables/components/SuccessBlock';
 import { ErrorBlock } from './component/reusables/components/ErrorBlock';
 import { RadioButtont } from './component/reusables/formcomponents/RadioButtont';
 import {CheckBox} from './component/reusables/formcomponents/CheckBox';
+import { FilesUploads } from './component/reusables/formcomponents/FilesUploads';
 
 type Option = {
   id: string;
@@ -67,9 +68,13 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
     );
   }
 
+  const [files, setFiles] = useState<File[]>([]);
+  const [updateCounter, setUpdateCounter] = useState(0);
+
+// Trigger a re-render
   useEffect(() => {
-    console.log(selected);
-  })
+  }, [updateCounter]);
+
 
   return (
     <>
@@ -186,6 +191,14 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
          labelStyle='text-gray-900 font-bold'
          onSelect={handleSelected}
         />
+
+        <FilesUploads 
+          fileInput='fileinputone'
+          fileData={files}
+          setUpdateCounter={setUpdateCounter}
+          setFiles={setFiles}  
+       />
+        
 
       </div>
 
