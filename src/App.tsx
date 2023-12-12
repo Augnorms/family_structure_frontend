@@ -123,9 +123,10 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
         {selectedGender}
 
         <Button 
-          label={'hello'}
-          styles='w-full border p-2 mt-2 bg-[dodgerblue] text-[white] rounded'
+          label={'add account'}
+          styles='resize border p-2 mt-2 bg-[dodgerblue] text-[white] rounded'
           disabled={true}
+          loading={false}
         />
 
         {/* <SuccessBlock 

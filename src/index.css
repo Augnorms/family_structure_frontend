@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.resize {
+    width: fit-content !important;
+    padding-right: 10px;
+  }
