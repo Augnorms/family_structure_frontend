@@ -7,6 +7,7 @@ import { ErrorBlock } from './component/reusables/components/ErrorBlock';
 import { RadioButtont } from './component/reusables/formcomponents/RadioButtont';
 import {CheckBox} from './component/reusables/formcomponents/CheckBox';
 import { FilesUploads } from './component/reusables/formcomponents/FilesUploads';
+import { ButtonSpinner } from './component/reusables/components/ButtonSpinner';
 
 type Option = {
   id: string;
@@ -200,6 +201,8 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
           setFiles={setFiles}  
        />
         
+       <ButtonSpinner 
+       /> 
 
       </div>
 
