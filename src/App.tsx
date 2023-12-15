@@ -8,6 +8,8 @@ import { RadioButtont } from './component/reusables/formcomponents/RadioButtont'
 import {CheckBox} from './component/reusables/formcomponents/CheckBox';
 import { FilesUploads } from './component/reusables/formcomponents/FilesUploads';
 import { ButtonSpinner } from './component/reusables/components/ButtonSpinner';
+import { TextArea } from './component/reusables/formcomponents/TextArea';
+import { DashboardComponent } from './component/reusables/components/DashboardComponent';
 
 type Option = {
   id: string;
@@ -76,133 +78,22 @@ const [isCheckedNo, setIsCheckedNo] = useState<boolean>(false);
   useEffect(() => {
   }, [updateCounter]);
 
+  //textArea
+  const [textarea, setTextArea] = useState<string>("");
+
+  const handleTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.currentTarget;
+    setTextArea(value);
+  };
 
   return (
     <>
     <button onClick={handleStats}>click</button>
       <div className='p-2'>
-          <Inputs 
-          type='text' 
-          style='
-          w-full border border-[#d8dae5] 
-          pl-10 p-2.5
-          hover:border-[#8F95B2] 
-          focus:outline-[#E47A53] 
-          focus:ring-3 focus:ring-[#F2BEAB] 
-          txt-field-style peer text-gray-900 
-          text-sm block  dark:bg-gray-700 dark:border-gray-600 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#F2BEAB] dark:focus:border[#d8dae5]'
-          labelOne='Name'
-          placeholder='Enter your name'
-          labelTwo='Required'
-          addpasswordVisibility={true}
-          showPaswword={true}
-          value={name}
-          onChange={handleChange}
-          useIcons
-          iconUserPass
-        />
-        {name}
-
-        <Select 
-          labelOne='Gender'
-          placeholder='Select your gender'
-          style='
-          w-full border border-[#d8dae5] 
-          pl-10 p-2.5
-          hover:border-[#8F95B2] 
-          rounded-lg focus:outline-[#E47A53] 
-          focus:ring-3 focus:ring-[#F2BEAB] 
-          txt-field-style peer text-gray-900 
-          text-sm block  dark:bg-gray-700 dark:border-gray-600 
-          dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#F2BEAB] dark:focus:border[#d8dae5]'
-          data={genderOptions}
-          value={selectedGender}
-          onChange={handleGenderChange}
-          onSelect={handleGenderSelect}
-        />
-        {selectedGender}
-
-        <Button 
-          label={'add account'}
-          styles='resize border p-2 mt-2 bg-[dodgerblue] text-[white] rounded'
-          disabled={true}
-          loading={false}
-        />
-
-        {/* <SuccessBlock 
-         blockControl={stats}
-         message='success'  
-        /> */}
-
-        <ErrorBlock 
-         blockControl={stats}
-         message='Falied' 
-        />
-
-        <RadioButtont 
-          style='
-          focus:ring-[#F2BEAB] 
-          accent-pink-500
-          md:accent-pink-500
-          focus:accent-pink-500
-          '
-          label='Yes'
-          fieldid='yes'
-          labelStyle='text-gray-900 font-bold'
-          isChecked={isCheckedYes}
-          onSelect={handlRadio}
-        />
-
-        <RadioButtont 
-          style='
-          focus:ring-[#F2BEAB] 
-          accent-pink-500
-          md:accent-pink-500
-          focus:accent-pink-500
-          '
-          label='No'
-          fieldid='no'
-          labelStyle='text-gray-900 font-bold'
-          isChecked={isCheckedNo}
-          onSelect={handlRadio}
-        />
-
-        <CheckBox
-         style='
-         focus:ring-[#F2BEAB] 
-         accent-pink-500
-         md:accent-pink-500
-         focus:accent-pink-500
-         '
-         label='August'
-         fieldid='august'
-         labelStyle='text-gray-900 font-bold'
-         onSelect={handleSelected}
-        />
-
-        <CheckBox
-         style='
-         focus:ring-[#F2BEAB] 
-         accent-pink-500
-         md:accent-pink-500
-         focus:accent-pink-500
-         '
-         label='September'
-         fieldid='september'
-         labelStyle='text-gray-900 font-bold'
-         onSelect={handleSelected}
-        />
-
-        <FilesUploads 
-          fileInput='fileinputone'
-          fileData={files}
-          setUpdateCounter={setUpdateCounter}
-          setFiles={setFiles}  
-       />
+       
+        <DashboardComponent 
         
-       <ButtonSpinner 
-       /> 
+        />
 
       </div>
 
