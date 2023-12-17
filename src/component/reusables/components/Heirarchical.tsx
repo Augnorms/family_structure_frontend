@@ -11,7 +11,7 @@ const RecursiveHeirarchy = (props: Node) => {
   return (
     <div className='w-full flex'>
       {props.children?.map((child, idx) => (
-        <div className='w-full border border-[deeppink] p-1' key={idx}>
+        <div className='w-full border border-[dodgerblue] p-1 shadow-md rounded-md m-1' key={idx}>
           <div className='w-full p-1 text-center text-[dodgerblue] font-bold truncate'>{child.label}</div>
           <div className='flex justify-center'>
             <div className='
@@ -47,7 +47,7 @@ export const Heirarchical = (props: Node) => {
       {/* Render children */}
       <div className='w-full flex'>
         {props.children?.map((child, idx) => (
-          <div className='w-full border border-[deeppink] p-1' key={idx}>
+          <div className='w-full border border-[dodgerblue] p-1 shadow-md rounded-md m-1' key={idx}>
             <div className='w-full p-1 text-center text-[dodgerblue] font-bold truncate'>{child.label}</div>
             <div className='flex justify-center'>
               <div 
@@ -65,7 +65,7 @@ export const Heirarchical = (props: Node) => {
             {/* Render call for grandchildren */}
             <div className='w-full flex'>
               {child.children?.map((g_child, g_idx) => (
-                <div className='w-full border border-[deeppink] p-1' key={g_idx}>
+                <div className='w-full border border-[dodgerblue] p-1 shadow-md rounded-md m-1' key={g_idx}>
                   <div className='w-full p-1  text-center text-[dodgerblue] font-bold truncate'>{g_child.label}</div>
                   <div className=' flex justify-center'>
                     <div className='

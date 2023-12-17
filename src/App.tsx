@@ -122,7 +122,6 @@ function App() {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const innerText = event.currentTarget.innerText;
-    console.log(innerText);
   };
   
   
