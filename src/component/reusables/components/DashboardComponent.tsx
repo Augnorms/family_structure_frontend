@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import circlearrow from "../assets/circle-right-arrow.svg";
 interface dashContent{
   image:string,
   content:string,
@@ -158,9 +158,12 @@ export const DashboardComponent = (props:DashboardProps) => {
                     }}
                    onClick={() => handlecomponent(data.content)}
                   >
-                    {data.content}
-                    
+                    {data.content}                  
                   </p>
+
+                  {componentName === data.content ? <div>
+                    <img src={circlearrow} alt='arrow' />
+                  </div> : <div></div>}
                 </div>
               ))}
       </div>
