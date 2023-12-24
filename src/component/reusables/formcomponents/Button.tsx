@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonSpinner } from '../components/ButtonSpinner';
+import { ButtonSpinner } from '../nonformcomponent/ButtonSpinner';
 
 type ButtonProps = {
   label: string;
