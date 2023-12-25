@@ -5,11 +5,12 @@ import { FaUserLock } from "react-icons/fa";
 
 type InputsProps = {
     type: string;
+    id?: string;
     style: string;
     useIcons?:boolean;
     iconUser?:boolean;
     iconUserPass?:boolean;
-    labelOne:string;
+    labelOne?:string;
     labelTwo?:string;
     placeholder:string;
     addpasswordVisibility?:boolean;
@@ -36,11 +37,12 @@ export const Inputs = (props:InputsProps) => {
           {props.iconUser ? <FaUser /> : props.iconUserPass ? <FaUserLock /> : ""}
           </div> : <div></div>}
           <input 
-          type={props.type}
-          className={props.style}
-          placeholder={props.placeholder}
-          value={props.value}
-          onChange={props.onChange}
+           type={props.type}
+           id={props.id}
+           className={props.style}
+           placeholder={props.placeholder}
+           value={props.value}
+           onChange={props.onChange}
           />
           {props.addpasswordVisibility ? (
             <div className="flex items-center p-2 cursor-pointer position absolute top-0 right-0 mt-1">
