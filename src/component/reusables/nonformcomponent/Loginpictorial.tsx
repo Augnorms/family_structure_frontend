@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../../../contextApi/LoginPictorialContext";
 import Mamaa from "../../../assets/Mamaa2.jpg";
 import Florence from "../../../assets/auntFlo.jpg";
 import James  from "../../../assets/james2.jpg";
@@ -15,6 +16,9 @@ import Awo from "../../../assets/awo.jpg";
 
 export const Loginpictorial = () => {
 
+  //use context used for managing components
+  const {setfamilyNames} = useContext(LoginContext);
+  
   const [indicator, setIndicator] = useState<number>(1);
 
   useEffect(() => {
@@ -22,6 +26,7 @@ export const Loginpictorial = () => {
       // Check if the indicator is less than or equal to 5
       if (indicator <= 14) {
         setIndicator((prevIndicator) => prevIndicator + 1);
+      
       } else {
         // If the indicator reaches 6, reset it to 0
         setIndicator(1);
@@ -32,6 +37,23 @@ export const Loginpictorial = () => {
     return () => clearInterval(intervalId);
   }, [indicator]);
 
+  if (indicator === 1) setfamilyNames("Dorothy Payne");
+  else if (indicator === 2) setfamilyNames("Florence Austin");
+  else if (indicator === 3) setfamilyNames("Josephine Quaicoe");
+  else if (indicator === 4) setfamilyNames("James Quaicoe");
+  else if (indicator === 5) setfamilyNames("Ruth Aboah");
+  else if (indicator === 6) setfamilyNames("Richard Torkonoo");
+  else if (indicator === 7) setfamilyNames("Roberta Torkonoo");
+  else if (indicator === 8) setfamilyNames("Reginald Torkonoo");
+  else if (indicator === 9) setfamilyNames("Nelly Djuckey");
+  else if (indicator === 10) setfamilyNames("Augustine Normanyo");
+  else if (indicator === 11) setfamilyNames("Dorothy Payne");
+  else if (indicator === 12) setfamilyNames("Roseline Torkornoo");
+  else if (indicator === 13) setfamilyNames("Ruth Djuckey");
+  else if (indicator === 14) setfamilyNames("Florence Normanyo");
+  else if (indicator === 15) setfamilyNames("Dorothy Payne");
+  else setfamilyNames("");
+  
  
   return (
     <div className='w-full'>
