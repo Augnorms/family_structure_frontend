@@ -2,6 +2,7 @@ import { Inputs } from "../../component/reusables/formcomponents/Inputs";
 import { CheckBox } from "../../component/reusables/formcomponents/CheckBox";
 import { Button } from "../../component/reusables/formcomponents/Button";
 import { useState } from "react";
+import { FaUser } from "react-icons/fa";
 
 export const LoginForm = () => {
 
@@ -45,6 +46,7 @@ export const LoginForm = () => {
                 <div className="w-full flex justify-center relative bottom-12 z-2 mb-[-35px]">
                    <div className="w-20 h-20 rounded-full shadow-md bg-white flex justify-center items-center border-t-[4px] border-t-cyan-300">
                       {/*iamge goes here*/}
+                      <FaUser size={40}/>
                    </div>
                 </div>
 
