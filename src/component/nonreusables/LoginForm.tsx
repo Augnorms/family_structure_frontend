@@ -7,10 +7,12 @@ export const LoginForm = () => {
 
     //declare state variables here
     const[forgpttenPassword, setforgpttenPassword] = useState<boolean>(false);
+    const[showOrClosePass, setshowOrClosePass] = useState<boolean>(false);
     const[username, setUsername] = useState<string>("");
     const[password, setpassword] = useState<string>("");
     const[forgotpass, setforgotpass] = useState<string>("");
     const[keepmeloggedin, setkeepmeloggedin] = useState<string>("");
+
 
     const handleForgottenPassword = ()=>{
       setforgpttenPassword(!forgpttenPassword);
@@ -32,6 +34,10 @@ export const LoginForm = () => {
     const handleKeepmeloggedin = (event:React.ChangeEvent<HTMLInputElement>)=>{
        setkeepmeloggedin(event.target.id);
     };
+
+    const handlePass = ()=>{   
+        setshowOrClosePass(!showOrClosePass);
+    }
 
   return (
          <div className="p-2 max-sm:w-[100%] sm:w-full md:w-4/5 xl:w-[60%] shadow-md rounded-md border-t-[4px] border-t-cyan-300">
@@ -70,7 +76,7 @@ export const LoginForm = () => {
 
                 <div className="w-full p-2">
                   <Inputs 
-                   type="password"
+                   type={!showOrClosePass ? "password" : "text"}
                    id="password"
                    style='
                     w-full border border-cyan-300
@@ -86,8 +92,10 @@ export const LoginForm = () => {
                    iconUserPass
                    placeholder="Enter password here..."
                    addpasswordVisibility
+                   showPaswword={showOrClosePass}
                    value={password}
                    onChange={handleInputFields}
+                   onShowpass={handlePass}
                   /> 
                 </div>
 

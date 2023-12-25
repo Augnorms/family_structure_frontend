@@ -17,6 +17,7 @@ type InputsProps = {
     showPaswword?:boolean;
     value:string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onShowpass?:(event: React.MouseEvent<HTMLDivElement>)=>void
 };
 
 export const Inputs = (props:InputsProps) => {
@@ -47,9 +48,9 @@ export const Inputs = (props:InputsProps) => {
           {props.addpasswordVisibility ? (
             <div className="flex items-center p-2 cursor-pointer position absolute top-0 right-0 mt-1">
               {props.showPaswword ?
-                 <FiEye />
+                 <FiEye name="open" onClick={props.onShowpass}/>
               :
-                <GoEyeClosed />
+                <GoEyeClosed name="close" onClick={props.onShowpass}/>
               }
             </div>
           ) : null}
