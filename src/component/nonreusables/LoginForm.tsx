@@ -36,7 +36,7 @@ export const LoginForm = () => {
     };
 
     const handlePass = ()=>{   
-        setshowOrClosePass(!showOrClosePass);
+      setshowOrClosePass(!showOrClosePass);
     }
 
   return (

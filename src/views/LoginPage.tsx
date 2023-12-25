@@ -2,8 +2,9 @@ import { Loginpictorial } from "../component/reusables/nonformcomponent/Loginpic
 import LoginImage from "../assets/login-bg-2.jpg";
 import Mamaa from "../assets/Mamaa2.jpg";
 import { LoginContext } from "../contextApi/LoginPictorialContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LoginForm } from "../component/nonreusables/LoginForm";
+import { LoginMessage } from "../component/reusables/nonformcomponent/LoginMessage";
 
 export const LoginPage = () => {
 
@@ -23,10 +24,16 @@ export const LoginPage = () => {
        </div> 
 
        <div className="max-sm:h-screen xl:h-[90vh] p-2 grid max-sm:grid-cols-1 xl:grid-cols-2 ">
-          <div className="flex justify-center items-center max-sm:col-span-1 md:col-span-1 p-2">
+        
+          <div className="">
 
-             <LoginForm />
+              <LoginMessage show label="failed"/>
 
+            <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
+
+              <LoginForm />
+
+            </div>
           </div>
 
           <div 

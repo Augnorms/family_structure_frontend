@@ -31,7 +31,7 @@ export const Loginpictorial = () => {
         // If the indicator reaches 6, reset it to 0
         setIndicator(1);
       }
-    }, 2000);
+    }, 5000);
   
     // Clean up the interval when the component is unmounted
     return () => clearInterval(intervalId);
