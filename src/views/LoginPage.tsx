@@ -27,7 +27,7 @@ export const LoginPage = () => {
         
           <div className="">
 
-              <LoginMessage show label="failed"/>
+              <LoginMessage show={true} label="success"/>
 
             <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
 
