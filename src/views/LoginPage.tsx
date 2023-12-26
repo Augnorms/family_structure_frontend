@@ -2,14 +2,35 @@ import { Loginpictorial } from "../component/reusables/nonformcomponent/Loginpic
 import LoginImage from "../assets/login-bg-2.jpg";
 import Mamaa from "../assets/Mamaa2.jpg";
 import { LoginContext } from "../contextApi/LoginPictorialContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginForm } from "../component/nonreusables/LoginForm";
 import { LoginMessage } from "../component/reusables/nonformcomponent/LoginMessage";
+import axios from "axios";
 
 export const LoginPage = () => {
 
   //use context used for managing components
-  const {familyNames} = useContext(LoginContext);
+  const {familyNames, username, password, forgotpass, keepmeloggedin} = useContext(LoginContext);
+  const[loading, setLoading] = useState<boolean>(false);
+
+
+  const handleLogin = async()=>{
+    try{
+     setLoading(true);
+
+     const response = await axios.post("http://localhost:4000/login", {
+      username: username,
+      password: password,
+    });
+
+    if(response)console.log(response);
+
+    }finally{
+      setLoading(false);
+    }
+  }
+
+
 
   return (
     <div className="w-full h-screen">
@@ -27,11 +48,11 @@ export const LoginPage = () => {
         
           <div className="">
 
-              <LoginMessage show={true} label="success"/>
+              {/* <LoginMessage /> */}
 
             <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
 
-              <LoginForm />
+              <LoginForm onLogin={handleLogin} status={loading}/>
 
             </div>
           </div>

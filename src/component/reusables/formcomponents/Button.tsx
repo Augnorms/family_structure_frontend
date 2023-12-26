@@ -5,6 +5,7 @@ type ButtonProps = {
   styles: string;
   disabled?: boolean;
   loading?: boolean; // Add loading prop
+  onSubmit?:()=>void
 };
 
 export const Button = (props: ButtonProps) => {
@@ -15,6 +16,7 @@ export const Button = (props: ButtonProps) => {
           props.disabled || props.loading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
         }`}
         disabled={props.disabled || props.loading}
+        onClick={props.onSubmit}
       >
         {props.loading ? <div className='mr-5'>
          <ButtonSpinner size='small'/>

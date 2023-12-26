@@ -7,10 +7,6 @@ export const ButtonSpinner = (props:SpinnerProps) => {
 
     return (
       <div className={`animate-spin ${spinnerSizeClass} border-t-4 border-blue-500 border-solid rounded-full p-1`}>
-         <div className={`animate-spin ${spinnerSizeClass} border-t-4 border-blue-500 border-solid rounded-full p-1`}>
-         <div className={`animate-spin ${spinnerSizeClass} border-t-4 border-blue-500 border-solid rounded-full p-1`}>      
-         </div>
-         </div>
       </div>
     );
 }

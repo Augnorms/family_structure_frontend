@@ -3,16 +3,25 @@ import { CheckBox } from "../../component/reusables/formcomponents/CheckBox";
 import { Button } from "../../component/reusables/formcomponents/Button";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
+import { LoginContext } from "../../contextApi/LoginPictorialContext";
+import { useContext } from "react";
 
-export const LoginForm = () => {
+interface Props{
+  onLogin?:()=>void;
+  onSubmitEmail?:()=>void
+  status?:boolean
+}
+
+export const LoginForm = (props:Props) => {
+
+    const {
+       username, setUsername, password, setPassword,
+       forgotpass, setforgotpass, setkeepmeloggedin
+      } = useContext(LoginContext);
 
     //declare state variables here
     const[forgpttenPassword, setforgpttenPassword] = useState<boolean>(false);
     const[showOrClosePass, setshowOrClosePass] = useState<boolean>(false);
-    const[username, setUsername] = useState<string>("");
-    const[password, setpassword] = useState<string>("");
-    const[forgotpass, setforgotpass] = useState<string>("");
-    const[keepmeloggedin, setkeepmeloggedin] = useState<string>("");
 
 
     const handleForgottenPassword = ()=>{
@@ -24,7 +33,7 @@ export const LoginForm = () => {
            setUsername(event.target.value);
         
         }else if(event.target.id === "password"){
-            setpassword(event.target.value);
+          setPassword(event.target.value);
         
         }else if(event.target.id === "forgottenpass"){
             setforgotpass(event.target.value);
@@ -33,7 +42,10 @@ export const LoginForm = () => {
     };
 
     const handleKeepmeloggedin = (event:React.ChangeEvent<HTMLInputElement>)=>{
-       setkeepmeloggedin(event.target.id);
+      const isChecked = event.target.checked
+  
+       if(isChecked)setkeepmeloggedin(event.target.id);
+       else setkeepmeloggedin("");
     };
 
     const handlePass = ()=>{   
@@ -124,6 +136,9 @@ export const LoginForm = () => {
                      text-white rounded
                      flex justify-center 
                     "
+                    disabled={password == '' || username == ''}
+                    onSubmit={props.onLogin}
+                    loading={props.status}
                   />
                 </div>
 
@@ -136,7 +151,7 @@ export const LoginForm = () => {
                 <div className={forgpttenPassword ? "w-full gap-1 p-2 flex" : "hidden"}>
                    <div className="w-[70%]">
                      <Inputs 
-                       type="number"
+                       type="text"
                        id="forgottenpass"
                        style='
                         w-full border border-cyan-300
@@ -147,10 +162,10 @@ export const LoginForm = () => {
                         txt-field-style peer text-gray-900 
                         text-sm block  dark:bg-gray-700 dark:border-gray-600 
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#F2BEAB] dark:focus:border-cyan-300'
-                        placeholder="Enter phone number here.."
+                        placeholder="Enter phone email here.."
                         value={forgotpass}
                         onChange={handleInputFields}
-                        labelOne="Number"
+                        labelOne="Email"
                      />
                    </div>
 
@@ -161,6 +176,10 @@ export const LoginForm = () => {
                       text-white rounded
                       flex justify-center 
                       "
+                      disabled={
+                        forgotpass=="" ||
+                        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotpass)
+                      }
                     />
                    </div>
                 </div>
