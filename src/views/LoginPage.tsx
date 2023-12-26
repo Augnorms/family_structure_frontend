@@ -2,42 +2,77 @@ import { Loginpictorial } from "../component/reusables/nonformcomponent/Loginpic
 import LoginImage from "../assets/login-bg-2.jpg";
 import Mamaa from "../assets/Mamaa2.jpg";
 import { LoginContext } from "../contextApi/LoginPictorialContext";
+import { loggedinInfoContext } from "../contextApi/LoggedInInforContext";
 import { useContext, useEffect, useState } from "react";
 import { LoginForm } from "../component/nonreusables/LoginForm";
 import { LoginMessage } from "../component/reusables/nonformcomponent/LoginMessage";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export const LoginPage = () => {
 
+  const navigate = useNavigate();
   //use context used for managing components
-  const {familyNames, username, password, forgotpass, keepmeloggedin} = useContext(LoginContext);
+  const {
+    familyNames, username, password, forgotpass, keepmeloggedin,
+    setUsername, setPassword
+  } = useContext(LoginContext);
+
+  const {setEmail, setToken, setLoggedid, setFirstname, setLastname, setIsadmin} = useContext(loggedinInfoContext);
+
   const[loading, setLoading] = useState<boolean>(false);
   const[resStatus, setResStatus] = useState<boolean>(false);
   const[resMessage, setResMessage] = useState<string>("");
 
-  const handleLogin = async()=>{
-    try{
-     setLoading(true);
 
-     const response = await axios.post("http://localhost:4000/login", {
-      username: username,
-      password: password,
-    });
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
 
-    if(response && response.status === 201){
-      setResStatus(true);
-      setResMessage(response?.data?.message);
-    }
+      const response = await axios.post("http://localhost:4000/login", {
+        username: username,
+        password: password,
+        rememberMe: keepmeloggedin === "keep me loggedin" ? true : false
+      });
 
-    }catch(error:any){
-      if(error.response && error.response.status === 401){
+      if (response && response.status === 201) {
+        setResStatus(true);
+        setResMessage(response?.data?.message);
+        setUsername("");
+        setPassword("");
+        setToken(response?.data?.token);
+        setEmail(response?.data?.data[0].email);
+        setLoggedid(response?.data?.data[0].loginId);
+        setFirstname(response?.data?.data[0].firstname);
+        setLastname(response?.data?.data[0].lastname);
+        setIsadmin(response?.data?.data[0].isadmin);
+      
+        
+        setTimeout(() => {
+          setResStatus(false);
+          navigate("/dashboard");
+        }, 5000);
+      }
+    } catch (error:any) {
+      if (error.response && error.response.status === 401) {
         setResStatus(true);
         setResMessage(error.response?.data?.message);
+        setUsername("");
+        setPassword("");
       }
-    }finally{
+    } finally {
       setLoading(false);
     }
-  }
+  };
+
+  //close dialogue when loggin is unsuccessful
+  useEffect(()=>{
+    if(username){
+      setResStatus(false);
+    }
+  },[username])
+
 
   return (
     <div className="w-full h-screen">
