@@ -12,7 +12,8 @@ export const LoginPage = () => {
   //use context used for managing components
   const {familyNames, username, password, forgotpass, keepmeloggedin} = useContext(LoginContext);
   const[loading, setLoading] = useState<boolean>(false);
-
+  const[resStatus, setResStatus] = useState<boolean>(false);
+  const[resMessage, setResMessage] = useState<string>("");
 
   const handleLogin = async()=>{
     try{
@@ -23,14 +24,20 @@ export const LoginPage = () => {
       password: password,
     });
 
-    if(response)console.log(response);
+    if(response && response.status === 201){
+      setResStatus(true);
+      setResMessage(response?.data?.message);
+    }
 
+    }catch(error:any){
+      if(error.response && error.response.status === 401){
+        setResStatus(true);
+        setResMessage(error.response?.data?.message);
+      }
     }finally{
       setLoading(false);
     }
   }
-
-
 
   return (
     <div className="w-full h-screen">
@@ -48,11 +55,14 @@ export const LoginPage = () => {
         
           <div className="">
 
-              {/* <LoginMessage /> */}
+              <LoginMessage show={resStatus} label={resMessage}/>
 
             <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
 
-              <LoginForm onLogin={handleLogin} status={loading}/>
+              <LoginForm 
+               onLogin={handleLogin} 
+               status={loading}
+               />
 
             </div>
           </div>

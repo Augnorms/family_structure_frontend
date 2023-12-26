@@ -30,7 +30,7 @@ export const LoginMessage = (props:Props) => {
            justify-center
            items-center
            ">
-           {props.label === "success" ?
+           {props.label === "login successful" ?
             <ButtonSpinner size="small"/>
             :
             <VscError size={40} color={'red'}/>
@@ -38,7 +38,7 @@ export const LoginMessage = (props:Props) => {
          </div>
          <div className="w-full  flex">
            <div className="w-[80%] text-lg font-bold flex justify-center items-center">
-             {props.label === "success" ?
+             {props.label === "login successful" ?
                 <p className="text-emerald-500">{props.label+" (wait you will be redirected soon...)"}</p>
                 :
                 <p className="text-rose-500">{props.label+" (please try again)"}</p>
@@ -47,7 +47,7 @@ export const LoginMessage = (props:Props) => {
 
            <div className="w-[20%] flex justify-center items-center">
               <div className="w-10 h-10 rounded-full border shadow-md flex justify-center items-center">
-               {props.label === "success" ? 
+               {props.label === "login successful" ? 
                  <IoCheckmarkCircleOutline size={30} color={'green'}/> 
                  :
                  <VscError size={30} color={'red'}/>
