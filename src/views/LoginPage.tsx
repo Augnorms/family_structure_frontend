@@ -31,6 +31,7 @@ export const LoginPage = () => {
 
   //verification state declaration
   const[varificationloading, setVarificationloading] = useState<boolean>(false);
+  const[verifyStatus, setVerifystatus] = useState<string>("");
   const[numberone, setNumberone] = useState<string>("");
   const[numbertwo, setNumberotwo] = useState<string>("");
   const[numberthree, setNumberthree] = useState<string>("");
@@ -73,6 +74,10 @@ useEffect(()=>{
         setNumberthree("");
         setNumberfour("");
         setNumberfive("");
+        setVerifystatus("success")
+        setTimeout(()=>{
+          setVerifystatus("")
+        }, 3000)
       }
   
     }catch(error:any){
@@ -82,6 +87,10 @@ useEffect(()=>{
         setNumberthree("");
         setNumberfour("");
         setNumberfive("");
+        setVerifystatus("failed")
+        setTimeout(()=>{
+          setVerifystatus("")
+        }, 3000)
     }finally{
       setVarificationloading(false); 
     }
@@ -95,7 +104,7 @@ if(numberone && numbertwo && numberthree && numberfour && numberfive){
      }finally{
       setVarificationloading(false); 
      }
-   }, 3000)
+   }, 1000)
 }
 
 },[numberone, numbertwo, numberthree, numberfour, numberfive])
@@ -193,6 +202,18 @@ const handleEmail = async()=>{
              
              {varificationloading ? <div className="w-full p-2 flex justify-center">
                   {<ButtonSpinner />}
+             </div> : <div></div>}
+
+             {verifyStatus == "success" ? <div className="w-full p-2 flex justify-center">
+                  <h4 className="p-2 text-emerald-500 font-bold border border-emerald-500 rounded">
+                    Verification sucessfull
+                  </h4>
+             </div>
+              :verifyStatus == "failed" ?
+             <div className="w-full p-2 flex justify-center">
+                  <h4 className="p-2 text-rose-600 font-bold border border-rose-600 rounded">
+                    Verification Failed
+                  </h4>
              </div> : <div></div>}
 
               <LoginMessage show={resStatus} label={resMessage}/>
