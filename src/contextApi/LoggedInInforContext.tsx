@@ -66,7 +66,6 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
         // Calculate expiration time relative to the current time
         const expirationTime = decodedToken.exp * 1000 - Date.now();
         setTokenExp(expirationTime);
-
         // Set up automatic logout when the token expires
         setTimeout(() => {
           setToken("");

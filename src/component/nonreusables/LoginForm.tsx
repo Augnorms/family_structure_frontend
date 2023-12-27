@@ -8,19 +8,20 @@ import { useContext } from "react";
 
 interface Props{
   onLogin?:()=>void;
-  onSubmitEmail?:()=>void
-  status?:boolean
+  onSubmitEmail?:()=>void;
+  status?:boolean;
+  emailStatus?:boolean;
 }
 
 export const LoginForm = (props:Props) => {
 
     const {
        username, setUsername, password, setPassword,
-       forgotpass, setforgotpass, setkeepmeloggedin
+       forgotpass, setforgotpass, setkeepmeloggedin,
+       forgpttenPassword, setforgpttenPassword
       } = useContext(LoginContext);
 
     //declare state variables here
-    const[forgpttenPassword, setforgpttenPassword] = useState<boolean>(false);
     const[showOrClosePass, setshowOrClosePass] = useState<boolean>(false);
 
 
@@ -180,6 +181,8 @@ export const LoginForm = (props:Props) => {
                         forgotpass=="" ||
                         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotpass)
                       }
+                      onSubmit={props.onSubmitEmail}
+                      loading={props.emailStatus}
                     />
                    </div>
                 </div>

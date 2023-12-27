@@ -8,6 +8,8 @@ import { LoginForm } from "../component/nonreusables/LoginForm";
 import { LoginMessage } from "../component/reusables/nonformcomponent/LoginMessage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { VerificationInput } from "../component/reusables/formcomponents/VerificationInput";
+import { ButtonSpinner } from "../component/reusables/nonformcomponent/ButtonSpinner";
 
 
 export const LoginPage = () => {
@@ -16,15 +18,89 @@ export const LoginPage = () => {
   //use context used for managing components
   const {
     familyNames, username, password, forgotpass, keepmeloggedin,
-    setUsername, setPassword
+    setUsername, setPassword, setforgotpass, setforgpttenPassword
   } = useContext(LoginContext);
 
   const {setEmail, setToken, setLoggedid, setFirstname, setLastname, setIsadmin} = useContext(loggedinInfoContext);
 
   const[loading, setLoading] = useState<boolean>(false);
+  const[emailloading, setEmailLoading] = useState<boolean>(false);
+  const[showVerify, setShowverify] = useState<boolean>(false);
   const[resStatus, setResStatus] = useState<boolean>(false);
   const[resMessage, setResMessage] = useState<string>("");
 
+  //verification state declaration
+  const[varificationloading, setVarificationloading] = useState<boolean>(false);
+  const[numberone, setNumberone] = useState<string>("");
+  const[numbertwo, setNumberotwo] = useState<string>("");
+  const[numberthree, setNumberthree] = useState<string>("");
+  const[numberfour, setNumberfour] = useState<string>("");
+  const[numberfive, setNumberfive] = useState<string>("");
+
+const handleverification = (event: React.ChangeEvent<HTMLInputElement>)=>{
+   if(event.target.id === "firstnumber"){
+      setNumberone(event.target.value);
+  
+   }else if(event.target.id === "secondnumber"){
+      setNumberotwo(event.target.value);
+
+   }else if(event.target.id === "thirdnumber"){
+      setNumberthree(event.target.value);
+
+   }else if(event.target.id === "forthnumber"){
+      setNumberfour(event.target.value)
+   
+   }else if(event.target.id === "fifthnumber"){
+      setNumberfive(event.target.value)
+  
+   }
+}
+
+//send verification
+useEffect(()=>{
+  const sendverification = async()=>{
+    try{
+      setVarificationloading(true); 
+  
+      const response = await axios.post("http://localhost:4000/verification", {
+        verificationnumber: (numberone + numbertwo + numberthree + numberfour + numberfive)
+      });
+  
+      if(response && response?.data?.code === 201){
+        setShowverify(false);
+        setNumberone("");
+        setNumberotwo("");
+        setNumberthree("");
+        setNumberfour("");
+        setNumberfive("");
+      }
+  
+    }catch(error:any){
+      console.log(error.response)
+        setNumberone("");
+        setNumberotwo("");
+        setNumberthree("");
+        setNumberfour("");
+        setNumberfive("");
+    }finally{
+      setVarificationloading(false); 
+    }
+  }
+
+if(numberone && numbertwo && numberthree && numberfour && numberfive){
+   setTimeout(()=>{
+     try{
+      setVarificationloading(true);
+      sendverification();
+     }finally{
+      setVarificationloading(false); 
+     }
+   }, 3000)
+}
+
+},[numberone, numbertwo, numberthree, numberfour, numberfive])
+
+  
 
   const handleLogin = async () => {
     try {
@@ -74,6 +150,31 @@ export const LoginPage = () => {
   },[username])
 
 
+/*handle email submission*/
+const handleEmail = async()=>{
+  try{
+    setEmailLoading(true);
+
+   const response = await axios.post("http://localhost:4000/emailverification",{
+    email:forgotpass
+   });
+
+    if(response && response?.data?.code === 201){
+      setShowverify(true);
+      setforgotpass("");
+      setforgpttenPassword(false);
+    }
+
+  }catch(error:any){
+    if(error.response && error.response.status === 401){
+      console.error(error.response)
+      setShowverify(false)
+    }
+  }finally{
+    setEmailLoading(false);
+  }
+}
+
   return (
     <div className="w-full h-screen">
        <div className="w-full p-2 flex gap-2">
@@ -89,14 +190,30 @@ export const LoginPage = () => {
        <div className="max-sm:h-screen xl:h-[90vh] p-2 grid max-sm:grid-cols-1 xl:grid-cols-2 ">
         
           <div className="">
+             
+             {varificationloading ? <div className="w-full p-2 flex justify-center">
+                  {<ButtonSpinner />}
+             </div> : <div></div>}
 
               <LoginMessage show={resStatus} label={resMessage}/>
+
+              <VerificationInput 
+                display={showVerify}
+                onChange={handleverification}
+                valueone={numberone}
+                valuetwo={numbertwo}
+                valuethree={numberthree}
+                valuefour={numberfour}
+                valuefive={numberfive}
+              />
 
             <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
 
               <LoginForm 
                onLogin={handleLogin} 
+               onSubmitEmail={handleEmail}
                status={loading}
+               emailStatus={emailloading}
                />
 
             </div>

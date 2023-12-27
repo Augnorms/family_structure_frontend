@@ -11,6 +11,8 @@ interface LoginContextProps {
   setforgotpass:Dispatch<SetStateAction<string>>;
   keepmeloggedin:string;
   setkeepmeloggedin:Dispatch<SetStateAction<string>>;
+  forgpttenPassword:boolean;
+  setforgpttenPassword:Dispatch<SetStateAction<boolean>>
 }
 
 interface LoginContextProviderProps {
@@ -28,7 +30,9 @@ export const LoginContext = createContext<LoginContextProps>({
     forgotpass:"",
     setforgotpass:()=>{},
     keepmeloggedin:"",
-    setkeepmeloggedin:()=>{}
+    setkeepmeloggedin:()=>{},
+    forgpttenPassword:false,
+    setforgpttenPassword:()=>{}
 });
 
 
@@ -39,12 +43,14 @@ export function LoginContextProvider({ children }: LoginContextProviderProps) {
   const[password, setPassword] = useState<string>("");
   const[forgotpass, setforgotpass] = useState<string>("");
   const[keepmeloggedin, setkeepmeloggedin] = useState<string>("");
+  const[forgpttenPassword, setforgpttenPassword] = useState<boolean>(false);
 
   return (
     <LoginContext.Provider value={
         { familyNames, setfamilyNames, username, setUsername, 
           password, setPassword, forgotpass, setforgotpass,
-          keepmeloggedin, setkeepmeloggedin 
+          keepmeloggedin, setkeepmeloggedin, forgpttenPassword, 
+          setforgpttenPassword
         }
       }>
       {children}
