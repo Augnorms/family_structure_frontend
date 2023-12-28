@@ -12,7 +12,11 @@ interface LoginContextProps {
   keepmeloggedin:string;
   setkeepmeloggedin:Dispatch<SetStateAction<string>>;
   forgpttenPassword:boolean;
-  setforgpttenPassword:Dispatch<SetStateAction<boolean>>
+  setforgpttenPassword:Dispatch<SetStateAction<boolean>>;
+  showresetform:boolean;
+  setshowresetform:Dispatch<SetStateAction<boolean>>;
+  veificationUserid:number,
+  setveificationUserid:Dispatch<SetStateAction<number>>
 }
 
 interface LoginContextProviderProps {
@@ -32,7 +36,11 @@ export const LoginContext = createContext<LoginContextProps>({
     keepmeloggedin:"",
     setkeepmeloggedin:()=>{},
     forgpttenPassword:false,
-    setforgpttenPassword:()=>{}
+    setforgpttenPassword:()=>{},
+    showresetform:false,
+    setshowresetform:()=>{},
+    veificationUserid:0,
+    setveificationUserid:()=>{},
 });
 
 
@@ -44,13 +52,16 @@ export function LoginContextProvider({ children }: LoginContextProviderProps) {
   const[forgotpass, setforgotpass] = useState<string>("");
   const[keepmeloggedin, setkeepmeloggedin] = useState<string>("");
   const[forgpttenPassword, setforgpttenPassword] = useState<boolean>(false);
+  const[showresetform, setshowresetform] = useState<boolean>(false);
+  const[veificationUserid, setveificationUserid] = useState<number>(0);
 
   return (
     <LoginContext.Provider value={
         { familyNames, setfamilyNames, username, setUsername, 
           password, setPassword, forgotpass, setforgotpass,
           keepmeloggedin, setkeepmeloggedin, forgpttenPassword, 
-          setforgpttenPassword
+          setforgpttenPassword, showresetform, setshowresetform,
+          veificationUserid, setveificationUserid
         }
       }>
       {children}

@@ -5,6 +5,7 @@ import { LoginContext } from "../contextApi/LoginPictorialContext";
 import { loggedinInfoContext } from "../contextApi/LoggedInInforContext";
 import { useContext, useEffect, useState } from "react";
 import { LoginForm } from "../component/nonreusables/LoginForm";
+import { LoginResetPassForm } from "../component/nonreusables/LoginResetPassForm";
 import { LoginMessage } from "../component/reusables/nonformcomponent/LoginMessage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +19,11 @@ export const LoginPage = () => {
   //use context used for managing components
   const {
     familyNames, username, password, forgotpass, keepmeloggedin,
-    setUsername, setPassword, setforgotpass, setforgpttenPassword
+    setUsername, setPassword, setforgotpass, setforgpttenPassword, 
+    showresetform, setshowresetform, setveificationUserid
   } = useContext(LoginContext);
 
+  //context state management
   const {setEmail, setToken, setLoggedid, setFirstname, setLastname, setIsadmin} = useContext(loggedinInfoContext);
 
   const[loading, setLoading] = useState<boolean>(false);
@@ -78,10 +81,12 @@ useEffect(()=>{
         setTimeout(()=>{
           setVerifystatus("")
         }, 3000)
+        setshowresetform(true);
+        setveificationUserid(response?.data?.user_id);
       }
   
     }catch(error:any){
-      console.log(error.response)
+        console.error(error.response)
         setNumberone("");
         setNumberotwo("");
         setNumberthree("");
@@ -229,6 +234,11 @@ const handleEmail = async()=>{
               />
 
             <div className="flex mt-20 justify-center max-sm:col-span-1 md:col-span-1 p-2">
+             {showresetform ?
+
+              <LoginResetPassForm />
+
+              :
 
               <LoginForm 
                onLogin={handleLogin} 
@@ -236,7 +246,7 @@ const handleEmail = async()=>{
                status={loading}
                emailStatus={emailloading}
                />
-
+             }
             </div>
           </div>
 
