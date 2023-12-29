@@ -12,7 +12,7 @@ import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
 export const Dashboard = () => {
  
   //context api
-  const {firstname, lastname} = useContext(loggedinInfoContext);
+  const {firstname, lastname, notify} = useContext(loggedinInfoContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -52,8 +52,9 @@ export const Dashboard = () => {
               <span className="font-bold text-cyan-600">
                 {` (${firstname} ${lastname})`}
               </span>
-            </div>
+            </div>   
          </div>
+
          <div className="lg:w-1/2 shadow-sm rounded p-2 flex justify-end">
             <div className="w-20 flex justify-between">
               <div className="w-16 h-10 rounded-full shadow-md flex justify-center items-center font-bold">

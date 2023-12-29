@@ -16,6 +16,8 @@ interface loggedInfoProps {
   isadmin: number;
   setIsadmin: Dispatch<SetStateAction<number>>;
   tokenExp: number; // new property for token expiration
+  notify: boolean;
+  setNotify: Dispatch<SetStateAction<boolean>>;
 }
 
 export const loggedinInfoContext = createContext<loggedInfoProps>({
@@ -32,6 +34,8 @@ export const loggedinInfoContext = createContext<loggedInfoProps>({
   isadmin: 0,
   setIsadmin: () => {},
   tokenExp: 0,
+  notify: false,
+  setNotify: () => {},
 });
 
 export const LoggedInInforContextProvider = ({ children }: { children: ReactNode }) => {
@@ -56,6 +60,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
 
   // Additional state variable for token expiration
   const [tokenExp, setTokenExp] = useState<number>(0);
+  const [notify, setNotify] = useState<boolean>(false);
 
   useEffect(() => {
     if (token) {
@@ -65,8 +70,15 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
       if (decodedToken && decodedToken.exp) {
         // Calculate expiration time relative to the current time
         const expirationTime = decodedToken.exp * 1000 - Date.now();
+       
         setTokenExp(expirationTime);
         // Set up automatic logout when the token expires
+
+        //notify when alost time to be loggedout
+        if (expirationTime <= 5 * 60 * 1000) {
+            setNotify(true);
+          }
+
         setTimeout(() => {
           setToken("");
           setLoggedid("");
@@ -88,7 +100,8 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
       firstname, setFirstname,
       lastname, setLastname,
       isadmin, setIsadmin,
-      tokenExp,
+      tokenExp, setNotify,
+      notify
     }}>
       {children}
     </loggedinInfoContext.Provider>
