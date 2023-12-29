@@ -12,10 +12,12 @@ interface dashComponent {
 
 type DashboardProps = {
   content:dashContent[],
-  components:dashComponent[]
+  components:dashComponent[],
+  dropdown_name?:string
 }
 
 export const DashboardComponent = (props:DashboardProps) => {
+ 
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(15); // Initial width percentage
   const [onRightBorder, setOnRightBorder] = useState(false);
@@ -110,11 +112,28 @@ export const DashboardComponent = (props:DashboardProps) => {
        setComponentName(name)
   }
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // Function to update the width
+    const updateWidth = () => {
+      setWidth(window.innerWidth);
+    };
+
+    // Attach the event listener when the component mounts
+    window.addEventListener('resize', updateWidth);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', updateWidth);
+    };
+  }, [width]);
+
   return (
-    <div className="w-full h-screen flex">
+    <div className="w-full h-screen flex gap-1">
       <div
         ref={sidebarRef}
-        className="sidebar border overflow-auto p-2 relative"
+        className="max-sm:hidden sm:hidden md:hidden lg:block sidebar border overflow-auto p-2 relative"
         style={{
           width: `${sidebarWidth}%`,
           cursor: onRightBorder ? 'ew-resize' : 'default',
@@ -127,7 +146,7 @@ export const DashboardComponent = (props:DashboardProps) => {
         onMouseLeave={handleOnMouseLeave}
       >
         {/* Sidebar content */}
-          <div className='p-2 font-semibold text-[dodgerblue]'>Dashboard</div>
+          <div className='p-2 font-semibold text-[dodgerblue] underline'>Dashboard</div>
 
               {props.content?.map((data, idx) => (
                 <div className='p-2 mb-1 flex gap-2' key={idx}>
@@ -168,15 +187,19 @@ export const DashboardComponent = (props:DashboardProps) => {
               ))}
       </div>
 
-      <div className='right-div overflow-auto' style={{ width: `${rightDivWidth}%` }}>
+      <div className={'right-div overflow-auto rounded shadow-md'} style={{ width: `${rightDivWidth}%`, 
+        ...(width <= 1000 && { width: '100%' }),
+      }}>
         {/* Right div content */}
-        {props.components?.map((comp, idx)=>(
-        
+        {props.components?.map((comp, idx) => (
         <div key={idx}>
-         {componentName === comp.dashContentname && comp.components}
+          {(componentName === comp.dashContentname || props.dropdown_name === comp.dashContentname) && (
+            <div>
+              {comp.components}
+            </div>
+          )}
         </div>
-
-        ))}
+      ))}
       </div>
     </div>
   );

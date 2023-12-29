@@ -180,8 +180,11 @@ const handleEmail = async()=>{
     }
 
   }catch(error:any){
-    if(error.response && error.response.status === 401){
+    if(error.response && error.response.status === 401 || error.response.status === 500){
       console.error(error.response)
+      setResMessage("Failed to submit email check your internet connection"); 
+      setResStatus(true);
+      setTimeout(()=>{setResStatus(false)}, 2000);
       setShowverify(false)
     }
   }finally{
@@ -209,6 +212,7 @@ const handleEmail = async()=>{
                   {<ButtonSpinner />}
              </div> : <div></div>}
 
+             {/*display messages */}
              {verifyStatus == "success" ? <div className="w-full p-2 flex justify-center">
                   <h4 className="p-2 text-emerald-500 font-bold border border-emerald-500 rounded">
                     Verification sucessfull
@@ -263,7 +267,7 @@ const handleEmail = async()=>{
               <div className="md:w-full text-center text-white">
               <p className={familyNames === 'Dorothy Payne' ? 'p-2 bg-white text-rose-500 font-bold rounded border-t-[4px] border-t-rose-500' 
               : 'p-2 bg-white text-cyan-500 font-bold rounded border-t-[4px] border-t-cyan-300'}>
-               {`Hello, I am ${familyNames}`}
+               {familyNames === 'Dorothy Payne' ? `(${familyNames})` :  `Hello, I am (${familyNames}) a descendant of Dorothy Payne`}
               </p>
 
                 <Loginpictorial /> 
