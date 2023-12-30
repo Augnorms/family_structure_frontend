@@ -1,6 +1,8 @@
 import { DashboardComponent } from "../component/reusables/nonformcomponent/DashboardComponent"
 import people from "../component/reusables/assets/people.svg";
+import home from "../component/reusables/assets/home.svg";
 import { Family_structure } from "../component/nonreusables/Family_structure";
+import { Home } from "./Home";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
@@ -8,6 +10,11 @@ import { useContext, useState } from "react";
 import {loggedinInfoContext} from "../contextApi/LoggedInInforContext";
 import { initials } from "../HelperFunction/functions";
 import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
+
+interface dashComponent {
+  dashContentname: string;
+  components: React.ReactElement; // Corrected the type to React.ReactElement
+}
 
 export const Dashboard = () => {
  
@@ -22,22 +29,33 @@ export const Dashboard = () => {
 
   const sideContent = [
     {
+     image:home,
+     content:"Home"
+    },
+    {
       image:people,
       content:"Members"
     }
   ];
 
-  const mainContent = [
+  const mainContent: dashComponent[] = [
     {
-      dashContentname:"Members",
-      components:<Family_structure />
-    }
+      dashContentname: "Home",
+      components: <Home />,
+    },
+    {
+      dashContentname: "Members",
+      components: <Family_structure />,
+    },
   ];
 
   const[dropnames, setDropnames] = useState<string>("");
   const handledropdown: React.MouseEventHandler<HTMLLIElement> = (event) => {
     const id = event.currentTarget.id;
-     if(id === "Members"){
+     if(id === "Home"){
+      setDropnames(id);
+      setShow(false);
+     }else if(id === "Members"){
       setDropnames(id);
       setShow(false);
      }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import circlearrow from "../assets/circle-right-arrow.svg";
+import { Home } from '../../../views/Home';
+import { Family_structure } from '../../nonreusables/Family_structure';
 interface dashContent{
   image:string,
   content:string,
@@ -110,6 +112,7 @@ export const DashboardComponent = (props:DashboardProps) => {
   //function to handle change
   const handlecomponent = (name:string)=>{
        setComponentName(name)
+
   }
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -128,6 +131,15 @@ export const DashboardComponent = (props:DashboardProps) => {
       window.removeEventListener('resize', updateWidth);
     };
   }, [width]);
+
+  const[medDasboard, setMedDashboard] = useState<string>("Home");
+
+  useEffect(()=>{
+    if(props.dropdown_name){
+      setMedDashboard(props.dropdown_name);
+    }
+    console.log(medDasboard)
+  },[props.dropdown_name]);
 
   return (
     <div className="w-full h-screen flex gap-1">
@@ -187,20 +199,28 @@ export const DashboardComponent = (props:DashboardProps) => {
               ))}
       </div>
 
-      <div className={'right-div overflow-auto rounded shadow-md'} style={{ width: `${rightDivWidth}%`, 
-        ...(width <= 1000 && { width: '100%' }),
-      }}>
+      {width <= 1000
+          ?
+        <div className='w-full h-screen bg-white' style={{ ...(width <= 1000 && { width: '100%' }),}}>
+           {
+             medDasboard === "Home" ? <Home /> :medDasboard === "Members" ? <Family_structure /> :<div></div>
+           } 
+        </div>
+        :
+        <div className={'right-div overflow-auto rounded shadow-md'} style={{ width: `${rightDivWidth}%`}}>
         {/* Right div content */}
         {props.components?.map((comp, idx) => (
-        <div key={idx}>
-          {(componentName === comp.dashContentname || props.dropdown_name === comp.dashContentname) && (
-            <div>
-              {comp.components}
-            </div>
-          )}
-        </div>
-      ))}
-      </div>
+          <div key={idx}>
+            {(componentName === comp.dashContentname) && (
+              <div>
+                {comp.components}
+              </div>
+            )}
+          </div>
+        ))}
+
+      </div>}
+
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { CiLogout } from "react-icons/ci";
 interface dropProps{
     onClick?: React.MouseEventHandler<HTMLLIElement>;
     onLogout?:React.MouseEventHandler<HTMLLIElement>;
@@ -17,12 +18,18 @@ export const Dropdown = (props:dropProps) => {
       ">
 
         <ul>
-            <li id="Members" className="ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
+            <li id="Home" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
+                Home
+            </li>
+
+            <li id="Members" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
                 Members
             </li>
 
-            <li id="Members" className="ml-4 hover:underline text-red-500 cursor-pointer" onClick={props.onLogout}>
-                Logout
+            <li id="Logout" className="ml-4 hover:underline text-red-500 cursor-pointer" onClick={props.onLogout}>
+              <div className="flex">
+                <div className="mt-[5px] mr-2"><CiLogout top={20}/></div> <p className="mb-2">Logout</p>
+              </div>
             </li>
         </ul>
         
