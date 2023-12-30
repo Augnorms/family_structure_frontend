@@ -29,7 +29,7 @@ useEffect(() => {
 
         <div className="w-full p-2 flex border">
             <div className="w-1/2 ">
-                settings{}
+                settings
             </div>
             <div className="w-1/2 flex justify-end">
               <p><span className="font-bold">LoggedIn Time:</span> <span className="text-cyan-500 font-bold">{" "+formatTime(countdown)}</span></p>

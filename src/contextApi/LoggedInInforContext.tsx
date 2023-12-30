@@ -69,19 +69,15 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
     if (token) {
       // Decode the token to get expiration time
       const decodedToken = jwtDecode(token);
-
+  
       if (decodedToken && decodedToken.exp) {
         // Calculate expiration time relative to the current time
         const expirationTime = decodedToken.exp * 1000 - Date.now();
-       
+  
         setTokenExp(expirationTime);
-        // Set up automatic logout when the token expires
-
-        //notify when alost time to be loggedout
-        if (expirationTime <= 5 * 60 * 1000) {
-            setNotify(true);
-          }
-
+  
+        if (expirationTime <= 300000) setNotify(true);
+  
         setTimeout(() => {
           setToken("");
           setLoggedid("");
@@ -94,6 +90,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
       }
     }
   }, [token, navigate]);
+  
 
   return (
     <loggedinInfoContext.Provider value={{
