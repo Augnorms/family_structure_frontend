@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import circlearrow from "../assets/circle-right-arrow.svg";
-import { Home } from '../../../views/Home';
+import { Home } from '../../nonreusables/Home';
 import { Family_structure } from '../../nonreusables/Family_structure';
+import { Settings } from '../../nonreusables/Settings';
 interface dashContent{
   image:string,
   content:string,
@@ -138,7 +139,6 @@ export const DashboardComponent = (props:DashboardProps) => {
     if(props.dropdown_name){
       setMedDashboard(props.dropdown_name);
     }
-    console.log(medDasboard)
   },[props.dropdown_name]);
 
   return (
@@ -203,7 +203,8 @@ export const DashboardComponent = (props:DashboardProps) => {
           ?
         <div className='w-full h-screen bg-white' style={{ ...(width <= 1000 && { width: '100%' }),}}>
            {
-             medDasboard === "Home" ? <Home /> :medDasboard === "Members" ? <Family_structure /> :<div></div>
+             medDasboard === "Home" ? <Home /> : medDasboard === "Members" ? <Family_structure /> 
+             : medDasboard === "Settings" ? <Settings /> : <div></div>
            } 
         </div>
         :

@@ -1,8 +1,9 @@
 import { DashboardComponent } from "../component/reusables/nonformcomponent/DashboardComponent"
 import people from "../component/reusables/assets/people.svg";
 import home from "../component/reusables/assets/home.svg";
+import settings from "../component/reusables/assets/settings.svg";
 import { Family_structure } from "../component/nonreusables/Family_structure";
-import { Home } from "./Home";
+import { Home } from "../component/nonreusables/Home";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
@@ -11,14 +12,16 @@ import {loggedinInfoContext} from "../contextApi/LoggedInInforContext";
 import { initials } from "../HelperFunction/functions";
 import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
 import { LogoutNotifier } from "../component/reusables/nonformcomponent/LogoutNotifier";
-
+import { Settings } from "../component/nonreusables/Settings";
+import { useNavigate } from "react-router-dom";
 interface dashComponent {
   dashContentname: string;
   components: React.ReactElement; // Corrected the type to React.ReactElement
 }
 
 export const Dashboard = () => {
- 
+  const navigate = useNavigate(); 
+
   //context api
   const {firstname, lastname, notify} = useContext(loggedinInfoContext);
 
@@ -36,6 +39,10 @@ export const Dashboard = () => {
     {
       image:people,
       content:"Members"
+    },
+    {
+      image:settings,
+      content:"Settings"
     }
   ];
 
@@ -48,6 +55,10 @@ export const Dashboard = () => {
       dashContentname: "Members",
       components: <Family_structure />,
     },
+    {
+      dashContentname: "Settings",
+      components:<Settings />
+    }
   ];
 
   const[dropnames, setDropnames] = useState<string>("");
@@ -55,9 +66,26 @@ export const Dashboard = () => {
     const id = event.currentTarget.id;
      if(id === "Home"){
       setDropnames(id);
-      setShow(false);
+      
      }else if(id === "Members"){
       setDropnames(id);
+      setShow(false);
+     }else if(id === "Settings"){
+      setDropnames(id);
+      setShow(false);
+     }
+  }
+
+  const handleLogout:React.MouseEventHandler<HTMLLIElement> = (event)=>{
+     const id = event.currentTarget.id
+     if(id === 'Logout'){
+      localStorage.setItem('token', "");
+      localStorage.setItem('loggedid', "");
+      localStorage.setItem('email', "");
+      localStorage.setItem('firstname', "");
+      localStorage.setItem('lastname', "");
+      localStorage.setItem('isadmin', "");
+      setTimeout(()=>{navigate("/");},1000);
       setShow(false);
      }
   }
@@ -84,7 +112,7 @@ export const Dashboard = () => {
               </div>  
             </div>
          </div>
-         {show ? <Dropdown onClick={handledropdown}/> : ""}
+         {show ? <Dropdown onClick={handledropdown} onLogout={handleLogout}/> : ""}
       </div>
 
       <div className="">
