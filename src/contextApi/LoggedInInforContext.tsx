@@ -18,6 +18,7 @@ interface loggedInfoProps {
   tokenExp: number; // new property for token expiration
   notify: boolean;
   setNotify: Dispatch<SetStateAction<boolean>>;
+ 
 }
 
 export const loggedinInfoContext = createContext<loggedInfoProps>({
@@ -36,6 +37,7 @@ export const loggedinInfoContext = createContext<loggedInfoProps>({
   tokenExp: 0,
   notify: false,
   setNotify: () => {},
+ 
 });
 
 export const LoggedInInforContextProvider = ({ children }: { children: ReactNode }) => {
@@ -47,6 +49,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
   const [firstname, setFirstname] = useState<string>(localStorage.getItem('firstname') || '');
   const [lastname, setLastname] = useState<string>(localStorage.getItem('lastname') || '');
   const [isadmin, setIsadmin] = useState<number>(parseInt(localStorage.getItem('isadmin') || '0'));
+
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
@@ -101,7 +104,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
       lastname, setLastname,
       isadmin, setIsadmin,
       tokenExp, setNotify,
-      notify
+      notify,
     }}>
       {children}
     </loggedinInfoContext.Provider>

@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
 import {loggedinInfoContext} from "../contextApi/LoggedInInforContext";
 import { initials } from "../HelperFunction/functions";
 import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
+import { LogoutNotifier } from "../component/reusables/nonformcomponent/LogoutNotifier";
 
 interface dashComponent {
   dashContentname: string;
@@ -62,7 +63,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="w-full h-screen overflow-auto">
+    <div className="w-full h-screen overflow-auto relative">
       <div className="md:flex-wrap lg:flex  shadow-md p-2 ">
          <div className="lg:w-1/2 shadow-sm rounded p-2 flex">
             <FaSun size={30}/>
@@ -89,6 +90,9 @@ export const Dashboard = () => {
       <div className="">
         <DashboardComponent content={sideContent} components={mainContent} dropdown_name={dropnames}/>
       </div>
+
+      {/*logout notifier*/}
+      {notify === true ? <LogoutNotifier /> : <div></div>}
     </div>
   )
 }
