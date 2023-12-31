@@ -9,12 +9,15 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
 import { useContext, useState } from "react";
 import {loggedinInfoContext} from "../contextApi/LoggedInInforContext";
+import {dashboardContext} from "../contextApi/DasboardstatesContext";
 import { initials } from "../HelperFunction/functions";
 import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
 import { LogoutNotifier } from "../component/reusables/nonformcomponent/LogoutNotifier";
 import { Settings } from "../component/nonreusables/Settings";
 import { useNavigate } from "react-router-dom";
 import { Dialogue } from "../component/reusables/nonformcomponent/Dialogue";
+import { AddUserForm } from "../component/nonreusables/AddUserForm";
+
 interface dashComponent {
   dashContentname: string;
   components: React.ReactElement; // Corrected the type to React.ReactElement
@@ -25,6 +28,7 @@ export const Dashboard = () => {
 
   //context api
   const {firstname, lastname, notify, setNotify} = useContext(loggedinInfoContext);
+  const {dialogue} = useContext(dashboardContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -125,7 +129,14 @@ export const Dashboard = () => {
       {notify === true ? <LogoutNotifier /> : <div></div>}
 
       {/*modal dialog display*/}
-      <Dialogue />
+
+      {dialogue === "user" ? 
+      <Dialogue>
+        <AddUserForm />
+      </Dialogue> : 
+      <div></div>}
+
+
     </div>
   )
 }

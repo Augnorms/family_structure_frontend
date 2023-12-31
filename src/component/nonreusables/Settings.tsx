@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import {loggedinInfoContext} from "../../contextApi/LoggedInInforContext";
+import { dashboardContext } from "../../contextApi/DasboardstatesContext";
 import { formatTime } from "../../HelperFunction/functions";
-
+import { Button } from "../reusables/formcomponents/Button";
 
 export const Settings = () => {
 
 const {tokenExp, setNotify} = useContext(loggedinInfoContext);
+const {setDialogue} = useContext(dashboardContext);
 
 const [countdown, setCountdown] = useState<number>(0);
 
@@ -47,8 +49,28 @@ useEffect(() => {
     <div className='w-full h-[92vh] p-2 overflow-auto'>
 
         <div className="w-full p-2 flex border">
-            <div className="w-1/2 ">
-                settings
+            <div className="w-1/2">
+                <div className="w-[20%] max-sm:hidden sm:hidden md:hidden lg:block">
+                   <Button 
+                    label="add user"
+                    styles="bg-cyan-300 p-2 w-full 
+                    text-white rounded
+                    flex justify-center
+                    "
+                    onSubmit={()=>setDialogue("user")}
+                   />
+                </div>
+
+                <div className="w-[20%] lg:hidden">
+                   <Button 
+                    label="+"
+                    styles="bg-cyan-300 p-2 w-full 
+                    text-white rounded
+                    flex justify-center
+                    "
+                    onSubmit={()=>setDialogue("user")}
+                   />
+                </div>
             </div>
             <div className="w-1/2 flex justify-between">
               <div></div>

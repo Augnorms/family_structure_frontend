@@ -1,0 +1,5 @@
+::-webkit-scrollbar {
+    width: 2px !important; 
+    height: 2px !important;
+    border-radius: 5px !important;
+  }
