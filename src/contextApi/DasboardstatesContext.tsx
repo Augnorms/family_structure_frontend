@@ -19,6 +19,8 @@ interface DashboardInterfaceProp {
   setEmail:Dispatch<SetStateAction<string>>;
   admin:string;
   setAdmin:Dispatch<SetStateAction<string>>;
+  editmode:boolean;
+  seteditMode:Dispatch<SetStateAction<boolean>>;
 }
 
 interface DashboardContextProviderProps {
@@ -42,6 +44,8 @@ export const dashboardContext = createContext<DashboardInterfaceProp>({
   setEmail:()=>{},
   admin: "",
   setAdmin: () => {},
+  editmode:false,
+  seteditMode:()=>{}
 });
 
 //context provider should start with capital letter
@@ -54,6 +58,7 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
   const [resetpass, setResetpass] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [admin, setAdmin] = useState<string>("");
+  const [editmode, seteditMode] = useState<boolean>(false);
 
   return (
     <dashboardContext.Provider value={{ 
@@ -65,6 +70,7 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
       resetpass, setResetpass,
       email, setEmail, 
       admin, setAdmin, 
+      editmode, seteditMode
     }}>
       {children}
     </dashboardContext.Provider>

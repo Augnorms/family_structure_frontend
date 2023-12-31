@@ -1,6 +1,6 @@
 import { IoIosCloseCircle } from "react-icons/io";
 import { dashboardContext } from "../../contextApi/DasboardstatesContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Inputs } from "../reusables/formcomponents/Inputs";
 import { Select } from "../reusables/formcomponents/Select";
 import { Button } from "../reusables/formcomponents/Button";
@@ -17,6 +17,7 @@ export const AddUserForm = () => {
 
 const[showpass, setShowpass] = useState<boolean>(false);
 const[showpassres, setShowpassres] = useState<boolean>(false);
+const[passwordcheck, setpasswordcheck] = useState<boolean | null>(null);
   
  const adminData = [
     {id:"1", name:"Admin"},
@@ -51,6 +52,16 @@ const[showpassres, setShowpassres] = useState<boolean>(false);
  const handlerepeatpass = ()=>{
     setShowpassres(!showpassres);
  }
+
+ useEffect(() => {
+    if (password.length > 0 && resetpass.length > 0 && password.length === resetpass.length && password === resetpass) {
+      setpasswordcheck(true);
+    } else if (password.length > 0 && resetpass.length > 0 && password.length !== resetpass.length && password !== resetpass) {
+      setpasswordcheck(false);
+    } else {
+      setpasswordcheck(null);
+    }
+  }, [password, resetpass]);
 
  const handleClose = ()=>{
     setDialogue("");
@@ -195,7 +206,16 @@ const[showpassres, setShowpassres] = useState<boolean>(false);
                         onShowpass={handlerepeatpass}
                         />
                 </div>
+
             </div>
+           
+           {/*password checker*/}
+            {passwordcheck !== null && (
+            <div className={passwordcheck ? "w-full border mt-5 rounded p-1 bg-emerald-400" : "w-full border mt-5 rounded p-1 bg-red-600"}>
+                {/* Content to be displayed inside the checker */}
+            </div>
+            )}
+
 
             <div className="w-full p-1 flex gap-2 mt-5">
                 <div className="w-full">
