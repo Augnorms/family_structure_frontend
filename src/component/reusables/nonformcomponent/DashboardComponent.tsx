@@ -142,12 +142,14 @@ export const DashboardComponent = (props:DashboardProps) => {
   },[props.dropdown_name]);
 
   return (
-    <div className="w-full h-screen flex gap-1">
+    <div className="w-full h-[92vh] flex gap-1">
+      
       <div
         ref={sidebarRef}
         className="max-sm:hidden sm:hidden md:hidden lg:block sidebar border overflow-auto p-2 relative"
         style={{
           width: `${sidebarWidth}%`,
+          height:'92vh',
           cursor: onRightBorder ? 'ew-resize' : 'default',
           borderRight: onRightBorder ? '3px solid dodgerblue' : ''
         }}
@@ -208,7 +210,7 @@ export const DashboardComponent = (props:DashboardProps) => {
            } 
         </div>
         :
-        <div className={'right-div overflow-auto rounded shadow-md'} style={{ width: `${rightDivWidth}%`}}>
+        <div className={'right-div  rounded shadow-md'} style={{ width: `${rightDivWidth}%`, height:'92vh'}}>
         {/* Right div content */}
         {props.components?.map((comp, idx) => (
           <div key={idx}>

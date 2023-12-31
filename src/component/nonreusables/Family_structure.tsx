@@ -2,7 +2,7 @@ import { Button } from "../reusables/formcomponents/Button"
 
 export const Family_structure = () => {
   return (
-    <div className='w-full h-screen p-2 overflow-auto'>
+    <div className='w-full h-[92vh] p-2 overflow-auto'>
 
       <div className="w-full p-2 flex border">
          <div className="w-1/2 ">

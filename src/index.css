@@ -15,10 +15,10 @@
 }   */
 
 .connector {
-  height: 2px; /* Set the desired thickness of the line */
+  height: 2px; 
   width: 80%;
-  background-color: #000; /* Set the desired color of the line */
-  margin: 5px 0; /* Adjust the spacing above and below the line */
+  background-color: #000; 
+  margin: 5px 0; 
 }
 
 

@@ -40,6 +40,7 @@ export const loggedinInfoContext = createContext<loggedInfoProps>({
  
 });
 
+//context provider should start with capital letter
 export const LoggedInInforContextProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
@@ -85,6 +86,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
           setFirstname("");
           setLastname("");
           setIsadmin(0);
+          setNotify(false);
           navigate("/");
         }, expirationTime);
       }

@@ -45,6 +45,7 @@ export const LoginContext = createContext<LoginContextProps>({
 
 
 //always set this at the central point like mainroutes
+//context provider should start with capital letter
 export function LoginContextProvider({ children }: LoginContextProviderProps) {
   const[familyNames, setfamilyNames] = useState<string>("");
   const[username, setUsername] = useState<string>("");

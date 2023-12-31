@@ -10,7 +10,14 @@ export const initials = (name:string)=>{
 }
 
 export const formatTime = (timeInSeconds: number) => {
-    const minutes = Math.floor(timeInSeconds / 60);
+    const hours = Math.floor(timeInSeconds / 3600);
+    const remainingMinutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = timeInSeconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  
+    if (hours > 0) {
+      return `${String(hours).padStart(2, "0")}:${String(remainingMinutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+  
+    return `${String(remainingMinutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
+  

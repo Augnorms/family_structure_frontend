@@ -4,7 +4,7 @@ import { Dashboard } from "./views/Dashboard";
 
 export const MainRoutes = () => {
   return (
-   
+    <div className="h-screen">
       <Routes>
         <Route 
          path="/" 
@@ -16,6 +16,6 @@ export const MainRoutes = () => {
           element={<Dashboard />}
          />
       </Routes>
-
+    </div>
   )
 }

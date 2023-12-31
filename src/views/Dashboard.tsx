@@ -14,6 +14,7 @@ import { Dropdown } from "../component/reusables/nonformcomponent/Dropdown";
 import { LogoutNotifier } from "../component/reusables/nonformcomponent/LogoutNotifier";
 import { Settings } from "../component/nonreusables/Settings";
 import { useNavigate } from "react-router-dom";
+import { Dialogue } from "../component/reusables/nonformcomponent/Dialogue";
 interface dashComponent {
   dashContentname: string;
   components: React.ReactElement; // Corrected the type to React.ReactElement
@@ -23,7 +24,7 @@ export const Dashboard = () => {
   const navigate = useNavigate(); 
 
   //context api
-  const {firstname, lastname, notify} = useContext(loggedinInfoContext);
+  const {firstname, lastname, notify, setNotify} = useContext(loggedinInfoContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -85,8 +86,9 @@ export const Dashboard = () => {
       localStorage.setItem('firstname', "");
       localStorage.setItem('lastname', "");
       localStorage.setItem('isadmin', "");
+      setNotify(false);
       setTimeout(()=>{navigate("/");},1000);
-      setShow(false);
+      setShow(false);  
      }
   }
 
@@ -121,6 +123,9 @@ export const Dashboard = () => {
 
       {/*logout notifier*/}
       {notify === true ? <LogoutNotifier /> : <div></div>}
+
+      {/*modal dialog display*/}
+      <Dialogue />
     </div>
   )
 }
