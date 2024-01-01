@@ -1,10 +1,12 @@
 import { IoIosCloseCircle } from "react-icons/io";
 import { dashboardContext } from "../../contextApi/DasboardstatesContext";
+import {blockContext} from "../../contextApi/BlockhandleContext";
 import { useContext, useEffect, useState } from "react";
 import { Inputs } from "../reusables/formcomponents/Inputs";
 import { Select } from "../reusables/formcomponents/Select";
 import { Button } from "../reusables/formcomponents/Button";
 import "../../settings.css";
+import axios from "axios";
 
 export const AddUserForm = () => {
 
@@ -15,9 +17,12 @@ export const AddUserForm = () => {
     admin, setAdmin
     } = useContext(dashboardContext);
 
+  const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext);  
+
 const[showpass, setShowpass] = useState<boolean>(false);
 const[showpassres, setShowpassres] = useState<boolean>(false);
 const[passwordcheck, setpasswordcheck] = useState<boolean | null>(null);
+const[loading, setloading] = useState<boolean>(false)
   
  const adminData = [
     {id:"1", name:"Admin"},
@@ -63,6 +68,47 @@ const[passwordcheck, setpasswordcheck] = useState<boolean | null>(null);
     }
   }, [password, resetpass]);
 
+
+//rest api queries
+const handlecreatuser = async()=>{
+  try{
+     setloading(true);
+
+     const response = await axios.post("http://localhost:4000/createuser", {
+      username: username,
+      password:password,
+      firstname:firstname,
+      lastname:lastname,
+      email:email,
+      isadmin:admin
+     })
+
+     if(response && response?.data?.code == 201){
+       //
+        setSucessDisplay(true);
+        setSuccessMessage(response?.data?.message);
+        setTimeout(()=>{
+          setSucessDisplay(false);
+        }, 3000);
+        handleClose();
+     }
+
+  }catch(err:any){
+     if(err.response){
+       setErrorDisplay(true);
+       setErrorMessage(err.response?.data?.message);
+       setTimeout(()=>{
+        setErrorDisplay(false);
+      }, 3000);
+      handleClose();
+     }
+  }finally{
+    setloading(false);
+  }
+};
+
+
+//close function
  const handleClose = ()=>{
     setDialogue("");
     setUsername("");
@@ -276,6 +322,8 @@ const[passwordcheck, setpasswordcheck] = useState<boolean | null>(null);
                         resetpass === "" ||
                         (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
                     }
+                    loading={loading}
+                    onSubmit={handlecreatuser}
                     />
                 </div>
             </div>

@@ -17,6 +17,9 @@ import { Settings } from "../component/nonreusables/Settings";
 import { useNavigate } from "react-router-dom";
 import { Dialogue } from "../component/reusables/nonformcomponent/Dialogue";
 import { AddUserForm } from "../component/nonreusables/AddUserForm";
+import { SuccessBlock } from "../component/reusables/nonformcomponent/SuccessBlock";
+import { ErrorBlock } from "../component/reusables/nonformcomponent/ErrorBlock";
+import {blockContext} from "../contextApi/BlockhandleContext";
 
 interface dashComponent {
   dashContentname: string;
@@ -29,6 +32,7 @@ export const Dashboard = () => {
   //context api
   const {firstname, lastname, notify, setNotify} = useContext(loggedinInfoContext);
   const {dialogue} = useContext(dashboardContext);
+  const {succesdisplay, sucessmessage, errordisplay, erroMessage} = useContext(blockContext)
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -136,7 +140,8 @@ export const Dashboard = () => {
       </Dialogue> : 
       <div></div>}
 
-
+      <SuccessBlock blockControl={succesdisplay} message={sucessmessage}/>
+      <ErrorBlock blockControl={errordisplay} message={erroMessage}/>
     </div>
   )
 }
