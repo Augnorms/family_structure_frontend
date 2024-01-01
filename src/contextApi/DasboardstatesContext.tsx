@@ -2,6 +2,15 @@
 
 import { createContext, Dispatch, SetStateAction, ReactNode, useState } from "react";
 
+interface UsersProp{
+  loginId:number,
+  username:string,
+  password:string,
+  firstname:string,
+  lastname:string,
+  email:string,
+  isadmin:number
+}
 interface DashboardInterfaceProp {
   dialogue: string;
   setDialogue: Dispatch<SetStateAction<string>>;
@@ -21,6 +30,10 @@ interface DashboardInterfaceProp {
   setAdmin:Dispatch<SetStateAction<string>>;
   editmode:boolean;
   seteditMode:Dispatch<SetStateAction<boolean>>;
+  tables:string;
+  setTables:Dispatch<SetStateAction<string>>
+  users:UsersProp[]
+  setUsers:Dispatch<SetStateAction<UsersProp[]>>
 }
 
 interface DashboardContextProviderProps {
@@ -45,7 +58,11 @@ export const dashboardContext = createContext<DashboardInterfaceProp>({
   admin: "",
   setAdmin: () => {},
   editmode:false,
-  seteditMode:()=>{}
+  seteditMode:()=>{},
+  tables:"",
+  setTables:()=>{},
+  users:[],
+  setUsers:()=>{}
 });
 
 //context provider should start with capital letter
@@ -59,6 +76,8 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
   const [email, setEmail] = useState<string>("");
   const [admin, setAdmin] = useState<string>("");
   const [editmode, seteditMode] = useState<boolean>(false);
+  const[tables, setTables] = useState<string>("users");
+  const[users, setUsers] = useState<UsersProp[]>([])
 
   return (
     <dashboardContext.Provider value={{ 
@@ -70,7 +89,9 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
       resetpass, setResetpass,
       email, setEmail, 
       admin, setAdmin, 
-      editmode, seteditMode
+      editmode, seteditMode,
+      tables, setTables,
+      users, setUsers
     }}>
       {children}
     </dashboardContext.Provider>
