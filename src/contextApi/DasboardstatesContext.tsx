@@ -11,6 +11,14 @@ interface UsersProp{
   email:string,
   isadmin:number
 }
+
+interface VerificationProp{
+  id:number,
+  user_id:number,
+  code:number,
+  expiration_time:string,
+  created_at:string
+}
 interface DashboardInterfaceProp {
   dialogue: string;
   setDialogue: Dispatch<SetStateAction<string>>;
@@ -31,9 +39,11 @@ interface DashboardInterfaceProp {
   editmode:boolean;
   seteditMode:Dispatch<SetStateAction<boolean>>;
   tables:string;
-  setTables:Dispatch<SetStateAction<string>>
-  users:UsersProp[]
-  setUsers:Dispatch<SetStateAction<UsersProp[]>>
+  setTables:Dispatch<SetStateAction<string>>;
+  users:UsersProp[];
+  setUsers:Dispatch<SetStateAction<UsersProp[]>>;
+  verify:VerificationProp[];
+  setVerify:Dispatch<SetStateAction<VerificationProp[]>>;
 }
 
 interface DashboardContextProviderProps {
@@ -62,7 +72,9 @@ export const dashboardContext = createContext<DashboardInterfaceProp>({
   tables:"",
   setTables:()=>{},
   users:[],
-  setUsers:()=>{}
+  setUsers:()=>{},
+  verify:[],
+  setVerify:()=>{}
 });
 
 //context provider should start with capital letter
@@ -77,7 +89,8 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
   const [admin, setAdmin] = useState<string>("");
   const [editmode, seteditMode] = useState<boolean>(false);
   const[tables, setTables] = useState<string>("users");
-  const[users, setUsers] = useState<UsersProp[]>([])
+  const[users, setUsers] = useState<UsersProp[]>([]);
+  const[verify, setVerify] = useState<VerificationProp[]>([]);
 
   return (
     <dashboardContext.Provider value={{ 
@@ -91,7 +104,8 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
       admin, setAdmin, 
       editmode, seteditMode,
       tables, setTables,
-      users, setUsers
+      users, setUsers,
+      verify, setVerify
     }}>
       {children}
     </dashboardContext.Provider>

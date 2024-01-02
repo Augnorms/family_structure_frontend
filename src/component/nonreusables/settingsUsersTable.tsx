@@ -1,10 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { dashboardContext } from "../../contextApi/DasboardstatesContext";
 import { ButtonSpinner } from "../reusables/nonformcomponent/ButtonSpinner";
 import axios from "axios";
+import { PiDotsThreeCircleVerticalDuotone } from "react-icons/pi";
+import { ActionComp } from "../reusables/nonformcomponent/ActionComp";
+import edit from "../reusables/assets/edit.svg";
+import view from "../reusables/assets/view.svg";
+import trash from "../reusables/assets/trash.svg";
+
 
 const SettingsUsersTable: React.FC = () => {
   const { users, setUsers } = useContext(dashboardContext);
+  const [showActionComp, setShowActionComp] = useState(false);
+  const [hoveredUserId, setHoveredUserId] = useState<number | null>(null);
+
 
   const handleAllUsers = async () => {
     try {
@@ -16,14 +25,28 @@ const SettingsUsersTable: React.FC = () => {
       }
     } catch (err: any) {
       if (err.response) {
-        console.log(err.response);
+        console.error(err.response);
       }
     }
   };
 
+  const handleMouseEnter = (userId: number) => {
+    setHoveredUserId(userId);
+    setShowActionComp(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredUserId(null);
+    setShowActionComp(false);
+  }
+
   useEffect(() => {
     handleAllUsers();
   }, []);
+
+  //usee to handle actions fro table actions
+  const handleactions = (label:string, id:number)=>{
+  }
 
   return (
     <div className="w-full">
@@ -68,13 +91,32 @@ const SettingsUsersTable: React.FC = () => {
                 <td className="font-bold p-2 whitespace-nowrap text-start text-ellipsis">{user.lastname}</td>
                 <td className="font-bold p-2 whitespace-nowrap text-start text-ellipsis">{user.email}</td>
                 <td className="font-bold p-2 whitespace-nowrap text-start text-ellipsis">{user.isadmin}</td>
+                <td className="relative" 
+                  onMouseEnter={() => handleMouseEnter(user.loginId)}
+                  onMouseLeave={handleMouseLeave}>
+                  <div className="w-full relative cursor-pointer actioncontrol">
+                  <PiDotsThreeCircleVerticalDuotone  />
+                  {hoveredUserId === user.loginId && showActionComp && (
+                  <ActionComp
+                    items={[
+                      { id: user.loginId, label: "Edit", logo: edit },
+                      { id: user.loginId, label: "Details", logo: view },
+                      { id: user.loginId, label: "Delete", logo: trash },
+                    ]}
+                    onClick={handleactions}
+                  />
+                )}
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
     </div>
   );
 };
 
 export default SettingsUsersTable;
+

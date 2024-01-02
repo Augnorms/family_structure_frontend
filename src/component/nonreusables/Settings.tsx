@@ -5,6 +5,7 @@ import { formatTime } from "../../HelperFunction/functions";
 import { Button } from "../reusables/formcomponents/Button";
 import  SettingsUsersTable  from "./settingsUsersTable";
 import { SettingsVerTable } from "./SettingsVerTable";
+import noEntry from "../reusables/assets/noEntry.svg";
 
 export const Settings = () => {
 
@@ -57,7 +58,7 @@ useEffect(() => {
                     label="add user"
                     styles="bg-cyan-300 p-2 w-full 
                     text-white rounded
-                    flex justify-center
+                    flex justify-center font-bold
                     "
                     onSubmit={()=>setDialogue("user")}
                    />
@@ -68,7 +69,7 @@ useEffect(() => {
                     label="+"
                     styles="bg-cyan-300 p-2 w-full 
                     text-white rounded
-                    flex justify-center
+                    flex justify-center 
                     "
                     onSubmit={()=>setDialogue("user")}
                    />
@@ -81,7 +82,7 @@ useEffect(() => {
                     label="users"
                     styles="bg-cyan-300 p-2 w-full 
                     text-white rounded
-                    flex justify-center
+                    flex justify-center font-bold
                     "
                     onSubmit={()=>setTables("users")}
                    />
@@ -105,7 +106,7 @@ useEffect(() => {
                     label="verifications"
                     styles="bg-cyan-300 p-2 w-full 
                     text-white rounded
-                    flex justify-center
+                    flex justify-center font-bold
                     "
                     onSubmit={()=>setTables("verification")}
                    />
@@ -132,11 +133,12 @@ useEffect(() => {
 
         <div className="w-full h-[40vh] mt-5 p-2 border overflow-auto">
           {tables === "users" ? <SettingsUsersTable /> :
-          tables === "verification" ? <SettingsVerTable /> : <SettingsUsersTable />}
+          tables === "verification" ? <SettingsVerTable /> : 
+          <SettingsUsersTable />}
         </div>
 
         <div className="w-full h-[40vh] mt-5 p-2 border overflow-auto">
-
+           
         </div>
        
     </div>
