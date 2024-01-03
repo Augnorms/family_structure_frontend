@@ -3,6 +3,7 @@ import circlearrow from "../assets/circle-right-arrow.svg";
 import { Home } from '../../nonreusables/Home';
 import { Family_structure } from '../../nonreusables/Family_structure';
 import { Settings } from '../../nonreusables/Settings';
+import { Members } from '../../nonreusables/Members';
 interface dashContent{
   image:string,
   content:string,
@@ -205,8 +206,8 @@ export const DashboardComponent = (props:DashboardProps) => {
           ?
         <div className='w-full h-screen bg-white' style={{ ...(width <= 1000 && { width: '100%' }),}}>
            {
-             medDasboard === "Home" ? <Home /> : medDasboard === "Members" ? <Family_structure /> 
-             : medDasboard === "Settings" ? <Settings /> : <div></div>
+             medDasboard === "Home" ? <Home /> : medDasboard === "Hierarchy" ? <Family_structure /> 
+             : medDasboard === "Profile" ?<Members /> : medDasboard === "Settings" ? <Settings /> : <div></div>
            } 
         </div>
         :

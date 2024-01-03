@@ -3,6 +3,7 @@ import people from "../component/reusables/assets/people.svg";
 import home from "../component/reusables/assets/home.svg";
 import settings from "../component/reusables/assets/settings.svg";
 import { Family_structure } from "../component/nonreusables/Family_structure";
+import { Members } from "../component/nonreusables/Members";
 import { Home } from "../component/nonreusables/Home";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
@@ -20,6 +21,8 @@ import { AddUserForm } from "../component/nonreusables/AddUserForm";
 import { SuccessBlock } from "../component/reusables/nonformcomponent/SuccessBlock";
 import { ErrorBlock } from "../component/reusables/nonformcomponent/ErrorBlock";
 import {blockContext} from "../contextApi/BlockhandleContext";
+import heirarchy from "../component/reusables/assets/heirarchy.svg";
+import { Heirarchical } from "../component/reusables/nonformcomponent/Heirarchical";
 
 interface dashComponent {
   dashContentname: string;
@@ -46,8 +49,12 @@ export const Dashboard = () => {
      content:"Home"
     },
     {
+      image:heirarchy,
+      content:"Hierarchy"
+    },
+    {
       image:people,
-      content:"Members"
+      content:"Profile"
     },
     {
       image:settings,
@@ -61,9 +68,14 @@ export const Dashboard = () => {
       components: <Home />,
     },
     {
-      dashContentname: "Members",
+      dashContentname: "Hierarchy",
       components: <Family_structure />,
     },
+    {
+      dashContentname: "Profile",
+      components: <Members />,
+    },
+    
     {
       dashContentname: "Settings",
       components:<Settings />
@@ -76,9 +88,14 @@ export const Dashboard = () => {
      if(id === "Home"){
       setDropnames(id);
       
-     }else if(id === "Members"){
+     }else if(id === "Hierarchy"){
       setDropnames(id);
       setShow(false);
+
+     }else if(id === "Profile"){
+      setDropnames(id);
+      setShow(false);
+
      }else if(id === "Settings"){
       setDropnames(id);
       setShow(false);

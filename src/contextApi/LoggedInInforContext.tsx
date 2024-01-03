@@ -1,6 +1,8 @@
 import { createContext, Dispatch, SetStateAction, ReactNode, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { ProfilesContext } from "./ProfileContext";
+import { useContext } from "react";
 
 interface loggedInfoProps {
   token: string;
@@ -43,6 +45,7 @@ export const loggedinInfoContext = createContext<loggedInfoProps>({
 //context provider should start with capital letter
 export const LoggedInInforContextProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
+  const {setProfilefirstname, setProfilelastname, setProfileemail, setProfileuserid} = useContext(ProfilesContext)
 
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [loggedid, setLoggedid] = useState<string>(localStorage.getItem('loggedid') || '');
@@ -60,6 +63,10 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
     localStorage.setItem('firstname', firstname);
     localStorage.setItem('lastname', lastname);
     localStorage.setItem('isadmin', isadmin.toString());
+    setProfileuserid(loggedid);
+    setProfilefirstname(firstname);
+    setProfilelastname(lastname);
+    setProfileemail(email);
   }, [token, loggedid, email, firstname, lastname, isadmin]);
 
   // Additional state variable for token expiration

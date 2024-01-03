@@ -4,14 +4,14 @@ import { useContext } from "react"
 
 export const Family_structure = () => {
 
-  const {setDialogue} = useContext(dashboardContext);
+  const {} = useContext(dashboardContext);
 
   return (
     <div className='w-full h-[92vh] p-2 overflow-auto'>
 
       <div className="w-full p-2 flex border">
          <div className="w-1/2 ">
-
+           structure
          </div>
          <div className="w-1/2 flex justify-end">
            <div className="w-[20%] max-sm:hidden sm:hidden lg:block">
@@ -20,7 +20,7 @@ export const Family_structure = () => {
                 styles="bg-cyan-300 p-2 w-full 
                 text-white rounded
                 flex justify-center"
-                onSubmit={()=>setDialogue("members")}
+                
               />
            </div>
 
@@ -30,7 +30,7 @@ export const Family_structure = () => {
                 styles="bg-cyan-300 p-2 w-full 
                 text-white rounded
                 flex justify-center"
-                onSubmit={()=>setDialogue("members")}
+             
               />
            </div>
          </div>

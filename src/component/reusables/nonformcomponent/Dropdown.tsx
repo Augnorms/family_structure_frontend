@@ -22,8 +22,12 @@ export const Dropdown = (props:dropProps) => {
                 Home
             </li>
 
-            <li id="Members" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
-                Members
+            <li id="Hierarchy" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
+                Hierarchy
+            </li>
+
+            <li id="Profile" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
+               Profile
             </li>
 
             <li id="Settings" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
