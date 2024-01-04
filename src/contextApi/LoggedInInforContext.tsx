@@ -2,6 +2,7 @@ import { createContext, Dispatch, SetStateAction, ReactNode, useState, useEffect
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { ProfilesContext } from "./ProfileContext";
+import { dashboardContext } from "./DasboardstatesContext";
 import { useContext } from "react";
 
 interface loggedInfoProps {
@@ -45,7 +46,16 @@ export const loggedinInfoContext = createContext<loggedInfoProps>({
 //context provider should start with capital letter
 export const LoggedInInforContextProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const {setProfilefirstname, setProfilelastname, setProfileemail, setProfileuserid} = useContext(ProfilesContext)
+  const {
+    setProfilefirstname, setProfilelastname, setProfileemail, setProfileuserid,
+    setProfilegender, setProfiledateofbirth, setProfileplaceofbirth,
+    setProfileoccupation, setProfilenationality, setProfilephonenumber,
+    setProfilemother, setProfilefather, setProfilemaritalstatus,
+    setProfilenumberofchildren, setProfileprimaryeducation, setProfilesecondaryeducation,
+    setProfiletertiaryeducation, setProfilehometown, setprofileisupdate
+  } = useContext(ProfilesContext);
+
+  const {setDialogue} = useContext(dashboardContext);
 
   const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [loggedid, setLoggedid] = useState<string>(localStorage.getItem('loggedid') || '');
@@ -63,6 +73,7 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
     localStorage.setItem('firstname', firstname);
     localStorage.setItem('lastname', lastname);
     localStorage.setItem('isadmin', isadmin.toString());
+
     setProfileuserid(loggedid);
     setProfilefirstname(firstname);
     setProfilelastname(lastname);
@@ -94,6 +105,25 @@ export const LoggedInInforContextProvider = ({ children }: { children: ReactNode
           setLastname("");
           setIsadmin(0);
           setNotify(false);
+
+          setDialogue("");
+
+          setProfilegender('');
+          setProfiledateofbirth('');
+          setProfileplaceofbirth('');
+          setProfileoccupation('');
+          setProfilenationality('');
+          setProfilephonenumber(""); 
+          setProfilemother('');
+          setProfilefather('');
+          setProfilemaritalstatus('');
+          setProfilenumberofchildren('');
+          setProfileprimaryeducation('');
+          setProfilesecondaryeducation('');
+          setProfiletertiaryeducation('');
+          setProfilehometown('');
+          setprofileisupdate(0);
+
           navigate("/");
         }, expirationTime);
       }

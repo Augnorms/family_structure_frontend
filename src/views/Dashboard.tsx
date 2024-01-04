@@ -21,6 +21,7 @@ import { AddUserForm } from "../component/nonreusables/AddUserForm";
 import { SuccessBlock } from "../component/reusables/nonformcomponent/SuccessBlock";
 import { ErrorBlock } from "../component/reusables/nonformcomponent/ErrorBlock";
 import {blockContext} from "../contextApi/BlockhandleContext";
+import { ProfilesContext } from "../contextApi/ProfileContext"
 import heirarchy from "../component/reusables/assets/heirarchy.svg";
 import { Heirarchical } from "../component/reusables/nonformcomponent/Heirarchical";
 
@@ -34,8 +35,15 @@ export const Dashboard = () => {
 
   //context api
   const {firstname, lastname, notify, setNotify} = useContext(loggedinInfoContext);
-  const {dialogue} = useContext(dashboardContext);
+  const {dialogue, setDialogue} = useContext(dashboardContext);
   const {succesdisplay, sucessmessage, errordisplay, erroMessage} = useContext(blockContext)
+  const {
+         setProfilegender, setProfiledateofbirth, setProfileplaceofbirth,
+         setProfileoccupation, setProfilenationality, setProfilephonenumber,
+         setProfilemother, setProfilefather, setProfilemaritalstatus,
+         setProfilenumberofchildren, setProfileprimaryeducation, setProfilesecondaryeducation,
+         setProfiletertiaryeducation, setProfilehometown, setprofileisupdate
+  } = useContext(ProfilesContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -111,6 +119,22 @@ export const Dashboard = () => {
       localStorage.setItem('firstname', "");
       localStorage.setItem('lastname', "");
       localStorage.setItem('isadmin', "");
+      setDialogue("");
+      setProfilegender('');
+      setProfiledateofbirth('');
+      setProfileplaceofbirth('');
+      setProfileoccupation('');
+      setProfilenationality('');
+      setProfilephonenumber(""); 
+      setProfilemother('');
+      setProfilefather('');
+      setProfilemaritalstatus('');
+      setProfilenumberofchildren('');
+      setProfileprimaryeducation('');
+      setProfilesecondaryeducation('');
+      setProfiletertiaryeducation('');
+      setProfilehometown('');
+      setprofileisupdate(0);
       setNotify(false);
       setTimeout(()=>{navigate("/");},1000);
       setShow(false);  

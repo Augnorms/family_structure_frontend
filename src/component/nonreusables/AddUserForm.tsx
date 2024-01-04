@@ -89,6 +89,7 @@ const handlecreatuser = async()=>{
         setSuccessMessage(response?.data?.message);
         setTimeout(()=>{
           setSucessDisplay(false);
+          setSuccessMessage("");
         }, 3000);
         handleClose();
      }
@@ -99,6 +100,7 @@ const handlecreatuser = async()=>{
        setErrorMessage(err.response?.data?.message);
        setTimeout(()=>{
         setErrorDisplay(false);
+        setErrorMessage("");
       }, 3000);
       handleClose();
      }

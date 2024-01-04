@@ -16,6 +16,7 @@ type InputsProps = {
     addpasswordVisibility?:boolean;
     showPaswword?:boolean;
     value:string;
+    disabled?:boolean;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onShowpass?:(event: React.MouseEvent<HTMLDivElement>)=>void
 };
@@ -44,6 +45,7 @@ export const Inputs = (props:InputsProps) => {
            placeholder={props.placeholder}
            value={props.value}
            onChange={props.onChange}
+           disabled={props.disabled}
           />
           {props.addpasswordVisibility ? (
             <div className="flex items-center p-2 cursor-pointer position absolute top-0 right-0 mt-1">

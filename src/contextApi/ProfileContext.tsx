@@ -37,6 +37,8 @@ interface ProfileProp {
   setProfiletertiaryeducation: Dispatch<SetStateAction<string>>;
   profilehometown: string;
   setProfilehometown: Dispatch<SetStateAction<string>>;
+  profileisupdate:number;
+  setprofileisupdate: Dispatch<SetStateAction<number>>;
 }
 
 interface ProfileContextProviderProps {
@@ -80,6 +82,8 @@ export const ProfilesContext = createContext<ProfileProp>({
     setProfiletertiaryeducation: () => {},
     profilehometown: "",
     setProfilehometown: () => {},
+    profileisupdate:0,
+    setprofileisupdate:()=>{}
   });
   
   
@@ -102,6 +106,7 @@ export function ProfileContextProvider({ children }: ProfileContextProviderProps
   const [profilesecondaryeducation, setProfilesecondaryeducation] = useState<string>("");
   const [profiletertiaryeducation, setProfiletertiaryeducation] = useState<string>("");
   const [profilehometown, setProfilehometown] = useState<string>("");
+  const [profileisupdate, setprofileisupdate] = useState<number>(0);
 
   const contextValue: ProfileProp = {
     profiluserId,
@@ -140,6 +145,8 @@ export function ProfileContextProvider({ children }: ProfileContextProviderProps
     setProfiletertiaryeducation,
     profilehometown,
     setProfilehometown,
+    profileisupdate, 
+    setprofileisupdate
   };
 
   return (
