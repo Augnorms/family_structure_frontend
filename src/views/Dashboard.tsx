@@ -23,7 +23,7 @@ import { ErrorBlock } from "../component/reusables/nonformcomponent/ErrorBlock";
 import {blockContext} from "../contextApi/BlockhandleContext";
 import { ProfilesContext } from "../contextApi/ProfileContext"
 import heirarchy from "../component/reusables/assets/heirarchy.svg";
-import { Heirarchical } from "../component/reusables/nonformcomponent/Heirarchical";
+import { FamilyForm } from "../component/nonreusables/FamilyForm";
 
 interface dashComponent {
   dashContentname: string;
@@ -179,6 +179,12 @@ export const Dashboard = () => {
       <Dialogue>
         <AddUserForm />
       </Dialogue> : 
+
+      dialogue === "family" ? 
+      <Dialogue>
+         <FamilyForm />
+      </Dialogue>
+      :
       <div></div>}
 
       <SuccessBlock blockControl={succesdisplay} message={sucessmessage}/>

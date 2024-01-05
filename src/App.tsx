@@ -4,11 +4,13 @@ import { LoggedInInforContextProvider } from "./contextApi/LoggedInInforContext"
 import { DashboardContextProvider } from "./contextApi/DasboardstatesContext";
 import { BlockContextProvider } from "./contextApi/BlockhandleContext";
 import { ProfileContextProvider } from "./contextApi/ProfileContext";
+import { FamilyContextProvider } from "./contextApi/FamilymembersContext";
 
 function App() {
   return (
     <>
       <div className='w-full h-screen'>
+     <FamilyContextProvider>
        <ProfileContextProvider> 
         <BlockContextProvider>
          <LoggedInInforContextProvider>
@@ -19,7 +21,8 @@ function App() {
           </LoginContextProvider>
          </LoggedInInforContextProvider>
         </BlockContextProvider>
-      </ProfileContextProvider>   
+      </ProfileContextProvider> 
+    </FamilyContextProvider>     
       </div>
     </>
   );

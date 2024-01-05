@@ -1,10 +1,17 @@
 import { Button } from "../reusables/formcomponents/Button" 
 import { dashboardContext } from "../../contextApi/DasboardstatesContext"
-import { useContext } from "react"
+import { useContext, useState } from "react"
+import { FamilyContext } from "../../contextApi/FamilymembersContext"
+import { Heirarchical } from "../../component/reusables/nonformcomponent/Heirarchical";
+
+
 
 export const Family_structure = () => {
 
-  const {} = useContext(dashboardContext);
+  const {setDialogue} = useContext(dashboardContext);
+  const {} = useContext(FamilyContext);
+ 
+
 
   return (
     <div className='w-full h-[92vh] p-2 overflow-auto'>
@@ -20,7 +27,7 @@ export const Family_structure = () => {
                 styles="bg-cyan-300 p-2 w-full 
                 text-white rounded
                 flex justify-center"
-                
+                onSubmit={()=>setDialogue("family")} 
               />
            </div>
 
@@ -30,14 +37,16 @@ export const Family_structure = () => {
                 styles="bg-cyan-300 p-2 w-full 
                 text-white rounded
                 flex justify-center"
-             
+                onSubmit={()=>setDialogue("family")}
               />
            </div>
          </div>
       </div>
 
       <div className="w-full h-[40vh] mt-5 p-2 border">
-
+         
+  
+  
       </div>
 
       <div className="w-full h-[40vh] mt-5 p-2 border">

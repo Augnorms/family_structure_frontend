@@ -205,7 +205,6 @@ const handlecreation = async()=>{
         setprofileisupdate(response?.data?.data?.profileisupdate);
         setTimeout(()=>{
           setSucessDisplay(false);
-          setSucessDisplay(false);
           setSuccessMessage("");
         }, 3000);
     }
