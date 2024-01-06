@@ -6,8 +6,8 @@ interface CheckboxOptionProps {
 }
 
 const CheckboxOption = ({ innerProps, label, isSelected }:CheckboxOptionProps) => (
-  <div {...innerProps}>
-    <input type="checkbox" checked={isSelected} onChange={() => {}} />
+  <div {...innerProps} className="p-2">
+    <input type="checkbox" className=" mr-2" checked={isSelected} onChange={() => {}} />
     <label>{label}</label>
   </div>
 );

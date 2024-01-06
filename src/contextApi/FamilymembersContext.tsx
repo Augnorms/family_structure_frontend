@@ -1,5 +1,6 @@
 import { createContext, Dispatch, SetStateAction, ReactNode, useState } from "react";
 interface Dataprop{
+    id:number
     name:string;
     dob:string;
     gender:string;

@@ -20,7 +20,7 @@ export const Family_structure = () => {
          <div className="w-1/2 ">
            structure
          </div>
-         <div className="w-1/2 flex justify-end">
+         <div className="w-1/2 flex  gap-2 justify-end">
            <div className="w-[20%] max-sm:hidden sm:hidden lg:block">
               <Button 
                 label="Add member"
@@ -31,6 +31,16 @@ export const Family_structure = () => {
               />
            </div>
 
+           <div className="w-[20%] max-sm:hidden sm:hidden lg:block">
+              <Button 
+                label="Add relation"
+                styles="bg-cyan-700 p-2 w-full 
+                text-white rounded
+                flex justify-center"
+                onSubmit={()=>setDialogue("relation")} 
+              />
+           </div>
+
            <div className="max-sm:w-[20%] sm:w-[20%] w-[10%] lg:hidden">
               <Button 
                 label="+"
@@ -38,6 +48,15 @@ export const Family_structure = () => {
                 text-white rounded
                 flex justify-center"
                 onSubmit={()=>setDialogue("family")}
+              />
+           </div>
+           <div className="max-sm:w-[20%] sm:w-[20%] w-[10%] lg:hidden">
+              <Button 
+                label="+"
+                styles="bg-cyan-700 p-2 w-full 
+                text-white rounded
+                flex justify-center"
+                onSubmit={()=>setDialogue("relation")}
               />
            </div>
          </div>

@@ -8,7 +8,7 @@ import { Home } from "../component/nonreusables/Home";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { FaSun } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {loggedinInfoContext} from "../contextApi/LoggedInInforContext";
 import {dashboardContext} from "../contextApi/DasboardstatesContext";
 import { initials } from "../HelperFunction/functions";
@@ -24,6 +24,10 @@ import {blockContext} from "../contextApi/BlockhandleContext";
 import { ProfilesContext } from "../contextApi/ProfileContext"
 import heirarchy from "../component/reusables/assets/heirarchy.svg";
 import { FamilyForm } from "../component/nonreusables/FamilyForm";
+import { RelationForm } from "../component/nonreusables/RelationForm";
+import { FamilyContext } from "../contextApi/FamilymembersContext";
+
+import axios from "axios";
 
 interface dashComponent {
   dashContentname: string;
@@ -44,6 +48,7 @@ export const Dashboard = () => {
          setProfilenumberofchildren, setProfileprimaryeducation, setProfilesecondaryeducation,
          setProfiletertiaryeducation, setProfilehometown, setprofileisupdate
   } = useContext(ProfilesContext);
+  const {returnData, setReturnData} = useContext(FamilyContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -141,6 +146,23 @@ export const Dashboard = () => {
      }
   }
 
+  //on page load fetch all members data
+  const fetchallmembers = async()=>{
+    try{
+
+      const response = await axios.get("http://localhost:4000/getallmembers");
+
+      if(response && response?.data?.code == 200){
+        setReturnData(response?.data?.data);
+      }
+
+    }catch(err:any){
+      console.error(err.response);
+    }
+  }
+
+  useEffect(()=>{fetchallmembers()},[])
+
   return (
     <div className="w-full h-screen overflow-auto relative">
       <div className="md:flex-wrap lg:flex  shadow-md p-2 ">
@@ -184,7 +206,11 @@ export const Dashboard = () => {
       <Dialogue>
          <FamilyForm />
       </Dialogue>
-      :
+      : dialogue === "relation" ?
+       <Dialogue>
+         <RelationForm />
+       </Dialogue>
+       :
       <div></div>}
 
       <SuccessBlock blockControl={succesdisplay} message={sucessmessage}/>
