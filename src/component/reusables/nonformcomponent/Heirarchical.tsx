@@ -1,9 +1,13 @@
 
-
+interface Family{
+  id: number;
+  label?: string;
+  children?: Family[];
+}
 interface Node {
   id: number;
   label?: string;
-  children?: Node[];
+  children?: Family[];
   handleClick?:(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>void
 }
 

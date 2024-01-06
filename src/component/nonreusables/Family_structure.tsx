@@ -1,22 +1,54 @@
 import { Button } from "../reusables/formcomponents/Button" 
 import { dashboardContext } from "../../contextApi/DasboardstatesContext"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FamilyContext } from "../../contextApi/FamilymembersContext"
 import { Heirarchical } from "../../component/reusables/nonformcomponent/Heirarchical";
+import axios from "axios";
 
-
+interface Family{
+  id: number;
+  label?: string;
+  children?: Family[];
+}
 
 export const Family_structure = () => {
 
   const {setDialogue} = useContext(dashboardContext);
   const {} = useContext(FamilyContext);
  
+  const [family, setFamily] = useState<Family[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const handleRelationship = async()=>{
+      try{
+        setLoading(true);
+        
+        const response = await axios.get("http://localhost:4000/hierarchy");
+
+        if(response && response?.data?.code === 200){
+           setFamily(response?.data?.data);
+        }
+ 
+      }catch(err:any){
+        if(err.response){
+          console.error(err);
+        }
+      }
+  };
+
+  useEffect(()=>{
+    handleRelationship();
+  },[])
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const innerText = event.currentTarget.innerText;
+  };
+  
 
   return (
     <div className='w-full h-[92vh] p-2 overflow-auto'>
 
-      <div className="w-full p-2 flex border">
+      <div className="w-full p-2 flex">
          <div className="w-1/2 ">
            structure
          </div>
@@ -62,13 +94,13 @@ export const Family_structure = () => {
          </div>
       </div>
 
-      <div className="w-full h-[40vh] mt-5 p-2 border">
+      <div className="w-full h-[40vh] mt-5 p-2  overflow-x-auto overflow-y-auto">
          
-  
+      {family.length > 0 && <Heirarchical {...family[0]} handleClick={handleClick}/>}
   
       </div>
 
-      <div className="w-full h-[40vh] mt-5 p-2 border">
+      <div className="w-full h-[40vh] mt-5 p-2 shadow-md border">
 
       </div>
         
