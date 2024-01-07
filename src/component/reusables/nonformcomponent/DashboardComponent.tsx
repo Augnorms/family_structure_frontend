@@ -4,6 +4,7 @@ import { Home } from '../../nonreusables/Home';
 import { Family_structure } from '../../nonreusables/Family_structure';
 import { Settings } from '../../nonreusables/Settings';
 import { Members } from '../../nonreusables/Members';
+import { AddmembersForm } from '../../nonreusables/AddmembersForm';
 interface dashContent{
   image:string,
   content:string,
@@ -207,7 +208,9 @@ export const DashboardComponent = (props:DashboardProps) => {
         <div className='w-full h-screen bg-white' style={{ ...(width <= 1000 && { width: '100%' }),}}>
            {
              medDasboard === "Home" ? <Home /> : medDasboard === "Hierarchy" ? <Family_structure /> 
-             : medDasboard === "Profile" ?<Members /> : medDasboard === "Settings" ? <Settings /> : <div></div>
+             : medDasboard === "Profile" ?<Members /> : medDasboard === "Settings" ? <Settings /> : 
+             medDasboard === "MemberForm" ? <AddmembersForm />
+             :<div></div>
            } 
         </div>
         :

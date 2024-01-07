@@ -1,4 +1,4 @@
-import { Button } from "../reusables/formcomponents/Button" 
+import { TbHierarchy3 } from "react-icons/tb";
 import { dashboardContext } from "../../contextApi/DasboardstatesContext"
 import { useContext, useEffect, useState } from "react"
 import { FamilyContext } from "../../contextApi/FamilymembersContext"
@@ -40,68 +40,37 @@ export const Family_structure = () => {
     handleRelationship();
   },[])
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const innerText = event.currentTarget.innerText;
+  const handleClick = (id: number) => {
+    // Handle the click event here with the id
   };
   
-
   return (
     <div className='w-full h-[92vh] p-2 overflow-auto'>
 
       <div className="w-full p-2 flex">
-         <div className="w-1/2 ">
-           structure
-         </div>
-         <div className="w-1/2 flex  gap-2 justify-end">
-           <div className="w-[20%] max-sm:hidden sm:hidden lg:block">
-              <Button 
-                label="Add member"
-                styles="bg-cyan-300 p-2 w-full 
-                text-white rounded
-                flex justify-center"
-                onSubmit={()=>setDialogue("family")} 
-              />
-           </div>
-
-           <div className="w-[20%] max-sm:hidden sm:hidden lg:block">
-              <Button 
-                label="Add relation"
-                styles="bg-cyan-700 p-2 w-full 
-                text-white rounded
-                flex justify-center"
-                onSubmit={()=>setDialogue("relation")} 
-              />
-           </div>
-
-           <div className="max-sm:w-[20%] sm:w-[20%] w-[10%] lg:hidden">
-              <Button 
-                label="+"
-                styles="bg-cyan-300 p-2 w-full 
-                text-white rounded
-                flex justify-center"
-                onSubmit={()=>setDialogue("family")}
-              />
-           </div>
-           <div className="max-sm:w-[20%] sm:w-[20%] w-[10%] lg:hidden">
-              <Button 
-                label="+"
-                styles="bg-cyan-700 p-2 w-full 
-                text-white rounded
-                flex justify-center"
-                onSubmit={()=>setDialogue("relation")}
-              />
-           </div>
+         <div className="w-full text-center font-bold text-[25px] shadow-sm text-cyan-700">
+           Family structure
          </div>
       </div>
 
-      <div className="w-full h-[40vh] mt-5 p-2  overflow-x-auto overflow-y-auto">
+      <div className="w-full h-screen mt-5 p-2  overflow-x-auto overflow-y-auto">
          
-      {family.length > 0 && <Heirarchical {...family[0]} handleClick={handleClick}/>}
+          {
+          
+          family.length > 0 ? <Heirarchical {...family[0]} handleClick={handleClick}/>
+          :
+           <>
+             <div className="w-full flex justify-center shadow-md rounded">
+
+                <TbHierarchy3 size={150}/>
+
+             </div>
+             <div className="w-full flex justify-center text-red-400 font-bold mt-2">
+                <h2>Sorry waiting for data...</h2>
+             </div>
+           </>
+          }
   
-      </div>
-
-      <div className="w-full h-[40vh] mt-5 p-2 shadow-md border">
-
       </div>
         
     </div>

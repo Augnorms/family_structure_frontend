@@ -26,6 +26,8 @@ import heirarchy from "../component/reusables/assets/heirarchy.svg";
 import { FamilyForm } from "../component/nonreusables/FamilyForm";
 import { RelationForm } from "../component/nonreusables/RelationForm";
 import { FamilyContext } from "../contextApi/FamilymembersContext";
+import profile from "../component/reusables/assets/profile.svg";
+import { AddmembersForm } from "../component/nonreusables/AddmembersForm";
 
 import axios from "axios";
 
@@ -66,8 +68,12 @@ export const Dashboard = () => {
       content:"Hierarchy"
     },
     {
-      image:people,
+      image:profile,
       content:"Profile"
+    },
+    {
+      image:people,
+      content:"MemberForm"
     },
     {
       image:settings,
@@ -88,7 +94,10 @@ export const Dashboard = () => {
       dashContentname: "Profile",
       components: <Members />,
     },
-    
+    {
+      dashContentname:"MemberForm",
+      components:<AddmembersForm />
+    },
     {
       dashContentname: "Settings",
       components:<Settings />
@@ -109,6 +118,10 @@ export const Dashboard = () => {
       setDropnames(id);
       setShow(false);
 
+     }else if(id === "MemberForm"){
+      setDropnames(id);
+      setShow(false);
+       
      }else if(id === "Settings"){
       setDropnames(id);
       setShow(false);

@@ -10,7 +10,7 @@ type ButtonProps = {
 
 export const Button = (props: ButtonProps) => {
   return (
-    <div className="w-full">
+
       <button
         className={`${props.styles} ${
           props.disabled || props.loading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
@@ -21,8 +21,8 @@ export const Button = (props: ButtonProps) => {
         {props.loading ? <div className='mr-5'>
          <ButtonSpinner size='small'/>
         </div> : <div></div>}
-        <div className='w-[70%]'>{props.label}</div>
+        <div className=''>{props.label}</div>
       </button>
-    </div>
+ 
   );
 };
