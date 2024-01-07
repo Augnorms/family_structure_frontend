@@ -50,7 +50,8 @@ export const Dashboard = () => {
          setProfilenumberofchildren, setProfileprimaryeducation, setProfilesecondaryeducation,
          setProfiletertiaryeducation, setProfilehometown, setprofileisupdate
   } = useContext(ProfilesContext);
-  const {returnData, setReturnData} = useContext(FamilyContext);
+  
+  const {setReturnData} = useContext(FamilyContext);
 
   const[show, setShow] = useState<boolean>(false);
 
@@ -121,7 +122,7 @@ export const Dashboard = () => {
      }else if(id === "MemberForm"){
       setDropnames(id);
       setShow(false);
-       
+
      }else if(id === "Settings"){
       setDropnames(id);
       setShow(false);

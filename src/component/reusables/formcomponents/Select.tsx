@@ -3,14 +3,15 @@ type Option = {
     name: string;
   };
 type SelectProps = {
-    labelOne:string;
+    labelOne?:string;
     labelTwo?:string;
     data:Option[];
     style:string;
     placeholder:string
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     value:string;
-    onSelect?: (selectedOption: Option) => void
+    onSelect?: (selectedOption: Option) => void,
+    disabled?:boolean
 }
 
 export const Select = (props:SelectProps) => {
@@ -44,6 +45,7 @@ export const Select = (props:SelectProps) => {
           className={props.style}
           onChange={handleSelect}
           value={props.value}    
+          disabled={props.disabled}
         >
          <option value="" disabled>
           {props.placeholder}

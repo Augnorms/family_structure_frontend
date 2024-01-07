@@ -312,7 +312,7 @@ const handleupdate = async()=>{
 
     <div className="w-full p-2 flex ">
        <div className="w-1/2 font-bold">
-          Members
+          Profile
        </div>
        <div className="w-1/2 flex justify-end">
          {!profileisupdate ? <div className="lg:w-[30%] 2xl:w-[25%] max-sm:hidden sm:hidden lg:block">

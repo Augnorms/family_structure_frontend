@@ -31,7 +31,7 @@ export const Dropdown = (props:dropProps) => {
             </li>
 
             <li id="MemberForm" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
-               Addmember
+               MemberForm
             </li>
 
             <li id="Settings" className="lg:hidden ml-4 hover:underline text-sky-500 cursor-pointer" onClick={props.onClick}>
