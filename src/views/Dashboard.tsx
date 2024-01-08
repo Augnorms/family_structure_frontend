@@ -28,6 +28,7 @@ import { RelationForm } from "../component/nonreusables/RelationForm";
 import { FamilyContext } from "../contextApi/FamilymembersContext";
 import profile from "../component/reusables/assets/profile.svg";
 import { AddmembersForm } from "../component/nonreusables/AddmembersForm";
+import { DeleteComp } from "../component/reusables/nonformcomponent/DeleteComp";
 
 import axios from "axios";
 
@@ -223,6 +224,10 @@ export const Dashboard = () => {
       : dialogue === "relation" ?
        <Dialogue>
          <RelationForm />
+       </Dialogue>
+       : dialogue === "delete" ?
+       <Dialogue>
+          <DeleteComp />
        </Dialogue>
        :
       <div></div>}

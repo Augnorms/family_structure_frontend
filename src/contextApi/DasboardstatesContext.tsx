@@ -44,6 +44,10 @@ interface DashboardInterfaceProp {
   setUsers:Dispatch<SetStateAction<UsersProp[]>>;
   verify:VerificationProp[];
   setVerify:Dispatch<SetStateAction<VerificationProp[]>>;
+  deleteTitle:string;
+  setDeleteTitle:Dispatch<SetStateAction<string>>;
+  deleteAction:boolean;
+  setDeleteAction:Dispatch<SetStateAction<boolean>>;
 }
 
 interface DashboardContextProviderProps {
@@ -74,7 +78,12 @@ export const dashboardContext = createContext<DashboardInterfaceProp>({
   users:[],
   setUsers:()=>{},
   verify:[],
-  setVerify:()=>{}
+  setVerify:()=>{},
+  deleteTitle:"",
+  setDeleteTitle:()=>{},
+  deleteAction:false,
+  setDeleteAction:()=>{},
+
 });
 
 //context provider should start with capital letter
@@ -91,6 +100,8 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
   const[tables, setTables] = useState<string>("users");
   const[users, setUsers] = useState<UsersProp[]>([]);
   const[verify, setVerify] = useState<VerificationProp[]>([]);
+  const[deleteTitle, setDeleteTitle] = useState<string>("");
+  const[deleteAction, setDeleteAction] = useState<boolean>(false);
 
   return (
     <dashboardContext.Provider value={{ 
@@ -105,7 +116,9 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
       editmode, seteditMode,
       tables, setTables,
       users, setUsers,
-      verify, setVerify
+      verify, setVerify,
+      deleteTitle, setDeleteTitle,
+      deleteAction, setDeleteAction
     }}>
       {children}
     </dashboardContext.Provider>

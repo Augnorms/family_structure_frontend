@@ -8,6 +8,7 @@ import { Button } from "../reusables/formcomponents/Button";
 import { MembersTable } from "./MembersTable";
 import axios from "axios";
 import { blockContext } from "../../contextApi/BlockhandleContext";
+import { dashboardContext } from "../../contextApi/DasboardstatesContext";
 
 interface resProp{
     id: number,
@@ -29,12 +30,15 @@ export const AddmembersForm = () => {
          memData, setMemData
         } = useContext(memberContext);
 
-        const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext); 
+  const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext);
+  const {setDialogue, deleteAction, setDeleteTitle, setDeleteAction} = useContext(dashboardContext); 
 
   const[members, setMembers] = useState<resProp[]>([]);
   const[fammember, setFammember] = useState<string>("");
   const[id, setId] = useState<number>(0); 
   const[loadingcreation, setLoadingcreation] = useState<boolean>(false); 
+  const[loadingupdate, setLoadingupdate] = useState<boolean>(false);
+  const[loadingdelete, setLoadindlete] = useState<boolean>(false); 
 
   useEffect(()=>{
    setMembers(returnData);
@@ -49,8 +53,12 @@ export const AddmembersForm = () => {
 
   const handleselct = (event: React.ChangeEvent<HTMLSelectElement>)=>{
   
-      const val = event.target.value;
-      setFammember(val); 
+     if(memname !== ""){
+       handleClear();
+     }
+
+     const val = event.target.value;
+     setFammember(val); 
      
   }
 
@@ -236,15 +244,99 @@ const nameData = memData?.map((data)=>data?.name);
 
 //handle update
 const handleupdate = async()=>{
-//    const value = fammember;
-//    console.log(value);
+   const valueid = fammember;
+   try{
+    setLoadingupdate(true);
+
+     const response = await axios.put("http://localhost:4000/updatemember",{
+        memuserId:valueid,
+        mememail:mememail ? mememail : "",
+        memmother:memmother ? memmother : "",
+        memfather:memfather ? memfather : "",
+        memmaritalstatus: memmaritalstatus ? memmaritalstatus : "",
+        memprimaryeducation:memprimaryeducation ? memprimaryeducation : "",
+        memsecondaryeducation:memsecondaryeducation ? memsecondaryeducation : "",
+        memtertiaryeducation:memtertiaryeducation ? memtertiaryeducation : "",
+        memoccupation:memoccupation ? memoccupation : "",
+        memnumberofchildren:Number(memnumberofchildren) ? Number(memnumberofchildren) : 0,
+        memplaceofbirth:memplaceofbirth ? memplaceofbirth : "",
+
+     });
+
+     if(response && response?.data?.code === 200){
+        setSucessDisplay(true);
+        setSuccessMessage(response?.data?.message);
+        setTimeout(()=>{
+          setSucessDisplay(false);
+          setSuccessMessage("");
+        },3000);
+        handleallmembers();
+     }
+
+   }catch(err:any){
+    console.error(err.response?.data?.err)
+    setErrorDisplay(true);
+    setErrorMessage(err.response?.data?.message);
+    setTimeout(()=>{
+      setErrorDisplay(false);
+      setErrorMessage("");
+    }, 3000)
+
+   }finally{
+    setLoadingupdate(false);
+   }
 };
 
 //handle Delete
+const calldeletedialog = ()=>{
+   setDialogue("delete");
+   setDeleteTitle(`${memname}`);
+}
+
 const handledelete = async()=>{
-    // const value = fammember;
-    // console.log(value);
+    const deleteid = fammember;
+   try{
+    setLoadindlete(true);
+
+    const response = await axios.post("http://localhost:4000/deletemember",{
+       deleteid:deleteid
+    });
+
+    if(response && response?.data?.code == 200){
+      setSucessDisplay(true);
+      setSuccessMessage(response?.data?.message);
+      setDialogue("");
+      handleClear();
+      setTimeout(()=>{
+        setSucessDisplay(false);
+        setSuccessMessage("");
+      },3000);
+      handleallmembers();
+    }
+
+   }catch(err:any){
+    console.error(err.response?.data?.err)
+    setErrorDisplay(true);
+    setErrorMessage(err.response?.data?.message);
+    setTimeout(()=>{
+      setErrorDisplay(false);
+      setErrorMessage("");
+    }, 3000)
+   }finally{
+    setLoadindlete(false);
+   }
 };
+
+//watch for deletion
+useEffect(()=>{
+  if(deleteAction){
+    handledelete();
+    setTimeout(()=>{
+    setDeleteAction(false);  
+    }, 2000)
+  }
+},[deleteAction]);
+
 
   return (
     <div className="w-full h-[92vh] mt-1">
@@ -270,7 +362,7 @@ const handledelete = async()=>{
           <div className="flex items-center ml-4">
             <Button 
              label="Clear"
-             styles="text-orange-600 p-2 w-full 
+             styles="text-orange-700 p-2 w-full 
               text-white rounded
               flex justify-center shadow-md hover:text-orange-300"
               onSubmit={handleClear}
@@ -357,6 +449,7 @@ const handledelete = async()=>{
             disabled
          />
        </div>
+
 
        {memname ?
         <div className="w-full grid lg:grid-cols-4 gap-2 p-2 shadow-md mt-4">
@@ -574,7 +667,13 @@ const handledelete = async()=>{
                 flex justify-center shadow-md hover:text-orange-300"
                 onSubmit={handlecreation}
                 loading={loadingcreation}
+                disabled={
+                  mememail == undefined || memmother == undefined || memfather == undefined
+                  ||
+                  mememail == '' || memmother == '' || memfather == ''
+                }
             />
+          
           </div>
             :
            <div className="w-full flex justify-center gap-1 mt-1">
@@ -586,6 +685,7 @@ const handledelete = async()=>{
                         text-white rounded
                         flex justify-center shadow-md hover:text-orange-300"
                         onSubmit={handleupdate}
+                        loading={loadingupdate}
                     />
                 </div>
                 <div className="w-[20%]">
@@ -595,7 +695,8 @@ const handledelete = async()=>{
                         bg-red-400 
                         text-white rounded
                         flex justify-center shadow-md hover:text-orange-300"
-                        onSubmit={handledelete}
+                        onSubmit={calldeletedialog}
+                        loading={loadingdelete}
                     />
                 </div>
             </div>}
