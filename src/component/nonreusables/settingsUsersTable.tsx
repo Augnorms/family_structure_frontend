@@ -5,14 +5,20 @@ import axios from "axios";
 import { PiDotsThreeCircleVerticalDuotone } from "react-icons/pi";
 import { ActionComp } from "../reusables/nonformcomponent/ActionComp";
 import edit from "../reusables/assets/edit.svg";
-import view from "../reusables/assets/view.svg";
 import trash from "../reusables/assets/trash.svg";
+import { blockContext } from "../../contextApi/BlockhandleContext";
 
 
 const SettingsUsersTable: React.FC = () => {
-  const { users, setUsers } = useContext(dashboardContext);
+  const { users, setUsers, setDialogue, setFirstname, setLastname, setEmail,
+       setUsername, setAdmin, seteditMode, setDeleteAction, setDeleteIndicator, deleteAction, setUserEditid } = useContext(dashboardContext);
+
+  const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext);
+
   const [showActionComp, setShowActionComp] = useState(false);
   const [hoveredUserId, setHoveredUserId] = useState<number | null>(null);
+ 
+  const [deleteid, setDeleteid] = useState<number>(0);
 
 
   const handleAllUsers = async () => {
@@ -44,9 +50,80 @@ const SettingsUsersTable: React.FC = () => {
     handleAllUsers();
   }, []);
 
+
+
   //usee to handle actions fro table actions
   const handleactions = (label:string, id:number)=>{
+
+    if(label === 'Edit'){
+      setUserEditid(id);
+      const userDetail = users.find((user)=>{
+        return user.loginId === id
+      });
+      
+      setUsername(userDetail?.username || "");
+      setFirstname(userDetail?.firstname || "");
+      setLastname(userDetail?.lastname || "");
+      setEmail(userDetail?.email || "");
+      setAdmin(String(userDetail?.isadmin) || "");
+      seteditMode(true);
+      setDialogue("user");
+
+    }else if(label === 'Delete'){
+      setDeleteid(id);
+      setDialogue("delete");
+      setDeleteIndicator("deleteuser");
+    }
+  };
+
+  //delete function
+  const handledelete = async()=>{
+    try{
+      
+      const response = await axios.post("http://localhost:4000/deleteuser", {
+            deleteId: deleteid
+      });
+
+     if(response && response?.data?.code == 200){
+      setSucessDisplay(true);
+      setSuccessMessage(response?.data?.message);
+      setDialogue("");
+      setTimeout(()=>{
+        setSucessDisplay(false);
+        setSuccessMessage("");
+        setDeleteAction("");
+        setDeleteIndicator("");
+      },3000);
+      handleAllUsers(); //fetch all users
+    }
+
+    }catch(err:any){
+      if(err.response){
+        setErrorDisplay(true);
+        setErrorMessage(err.response?.data?.message);
+        setTimeout(()=>{
+         setErrorDisplay(false);
+         setErrorMessage("");
+       }, 3000);
+
+      }
+    }
   }
+
+  //watch for deletion
+useEffect(()=>{
+  if(deleteAction === "deleteuser"){
+    handledelete();
+    setTimeout(()=>{
+    setDeleteAction("");  
+    setDeleteAction("");
+    setDeleteIndicator("");
+    }, 2000)
+
+  }else if(deleteAction == ""){
+    //do nothing
+  }
+},[deleteAction]);
 
   return (
     <div className="w-full">
@@ -100,7 +177,6 @@ const SettingsUsersTable: React.FC = () => {
                   <ActionComp
                     items={[
                       { id: user.loginId, label: "Edit", logo: edit },
-                      { id: user.loginId, label: "Details", logo: view },
                       { id: user.loginId, label: "Delete", logo: trash },
                     ]}
                     onClick={handleactions}

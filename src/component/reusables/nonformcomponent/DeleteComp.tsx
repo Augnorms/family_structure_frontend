@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 export const DeleteComp = () => {
 
-const {setDialogue, setDeleteAction, deleteTitle} = useContext(dashboardContext);
+const {setDialogue, setDeleteAction, deleteTitle, deleteIndicator} = useContext(dashboardContext);
 
   return (
     <div className='w-full flex justify-center p-2'>
@@ -20,7 +20,7 @@ const {setDialogue, setDeleteAction, deleteTitle} = useContext(dashboardContext)
                     bg-red-400 
                     text-white rounded
                     flex justify-center shadow-md hover:text-orange-300"
-                   onSubmit={()=>setDeleteAction(true)}
+                   onSubmit={()=>setDeleteAction(deleteIndicator)}
                 />                
               </div>
               <div className='w-[50%]'>

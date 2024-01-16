@@ -27,11 +27,11 @@ export const AddmembersForm = () => {
          memprimaryeducation, setMemprimaryeducation, memsecondaryeducation, setMemsecondaryeducation,
          memtertiaryeducation, setMemtertiaryeducation, memoccupation, setMemoccupation,
          memnumberofchildren, setMemnumberofchildren, memplaceofbirth, setMemplaceofbirth,
-         memData, setMemData
+         memData, setMemData,
         } = useContext(memberContext);
 
   const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext);
-  const {setDialogue, deleteAction, setDeleteTitle, setDeleteAction} = useContext(dashboardContext); 
+  const {setDialogue, deleteAction, setDeleteTitle, setDeleteAction, setDeleteIndicator} = useContext(dashboardContext); 
 
   const[members, setMembers] = useState<resProp[]>([]);
   const[fammember, setFammember] = useState<string>("");
@@ -291,6 +291,7 @@ const handleupdate = async()=>{
 const calldeletedialog = ()=>{
    setDialogue("delete");
    setDeleteTitle(`${memname}`);
+   setDeleteIndicator("memberdelete");
 }
 
 const handledelete = async()=>{
@@ -310,6 +311,8 @@ const handledelete = async()=>{
       setTimeout(()=>{
         setSucessDisplay(false);
         setSuccessMessage("");
+        setDeleteAction("");
+        setDeleteIndicator("");
       },3000);
       handleallmembers();
     }
@@ -329,11 +332,15 @@ const handledelete = async()=>{
 
 //watch for deletion
 useEffect(()=>{
-  if(deleteAction){
+  if(deleteAction === "memberdelete"){
     handledelete();
     setTimeout(()=>{
-    setDeleteAction(false);  
+    setDeleteAction("");  
+    setDeleteAction("");
+    setDeleteIndicator("");
     }, 2000)
+  }else if(deleteAction == ""){
+    //do nothing
   }
 },[deleteAction]);
 

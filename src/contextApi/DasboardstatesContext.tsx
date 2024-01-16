@@ -46,8 +46,12 @@ interface DashboardInterfaceProp {
   setVerify:Dispatch<SetStateAction<VerificationProp[]>>;
   deleteTitle:string;
   setDeleteTitle:Dispatch<SetStateAction<string>>;
-  deleteAction:boolean;
-  setDeleteAction:Dispatch<SetStateAction<boolean>>;
+  deleteAction:string;
+  setDeleteAction:Dispatch<SetStateAction<string>>;
+  deleteIndicator:string;
+  setDeleteIndicator:Dispatch<SetStateAction<string>>;
+  useEditid:number;
+  setUserEditid:Dispatch<SetStateAction<number>>;
 }
 
 interface DashboardContextProviderProps {
@@ -81,9 +85,12 @@ export const dashboardContext = createContext<DashboardInterfaceProp>({
   setVerify:()=>{},
   deleteTitle:"",
   setDeleteTitle:()=>{},
-  deleteAction:false,
+  deleteAction:"",
   setDeleteAction:()=>{},
-
+  deleteIndicator:"",
+  setDeleteIndicator:()=>{},
+  useEditid:0,
+  setUserEditid:()=>{},
 });
 
 //context provider should start with capital letter
@@ -101,7 +108,9 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
   const[users, setUsers] = useState<UsersProp[]>([]);
   const[verify, setVerify] = useState<VerificationProp[]>([]);
   const[deleteTitle, setDeleteTitle] = useState<string>("");
-  const[deleteAction, setDeleteAction] = useState<boolean>(false);
+  const[deleteAction, setDeleteAction] = useState<string>("");
+  const[deleteIndicator, setDeleteIndicator] = useState<string>("");
+  const[useEditid, setUserEditid] = useState<number>(0);
 
   return (
     <dashboardContext.Provider value={{ 
@@ -118,7 +127,9 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
       users, setUsers,
       verify, setVerify,
       deleteTitle, setDeleteTitle,
-      deleteAction, setDeleteAction
+      deleteAction, setDeleteAction,
+      deleteIndicator, setDeleteIndicator,
+      useEditid, setUserEditid
     }}>
       {children}
     </dashboardContext.Provider>

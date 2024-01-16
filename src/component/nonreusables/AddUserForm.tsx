@@ -14,7 +14,8 @@ export const AddUserForm = () => {
     setDialogue, username, setUsername, email, setEmail,
     firstname, setFirstname, lastname, setLastname,
     password, setPassword, resetpass, setResetpass,
-    admin, setAdmin
+    admin, setAdmin, setUsers, editmode, seteditMode,
+    useEditid
     } = useContext(dashboardContext);
 
   const {setSucessDisplay, setSuccessMessage, setErrorDisplay, setErrorMessage} = useContext(blockContext);  
@@ -68,6 +69,21 @@ const[loading, setloading] = useState<boolean>(false)
     }
   }, [password, resetpass]);
 
+//fetch all users upon user creation
+const handleAllUsers = async () => {
+  try {
+    const response = await axios.get("http://localhost:4000/getalluers");
+
+    if (response && response?.data?.code === 200) {
+
+      setUsers(response?.data?.data);
+    }
+  } catch (err: any) {
+    if (err.response) {
+      console.error(err.response);
+    }
+  }
+};
 
 //rest api queries
 const handlecreatuser = async()=>{
@@ -87,6 +103,7 @@ const handlecreatuser = async()=>{
        //
         setSucessDisplay(true);
         setSuccessMessage(response?.data?.message);
+        handleAllUsers();//fetch data
         setTimeout(()=>{
           setSucessDisplay(false);
           setSuccessMessage("");
@@ -109,6 +126,46 @@ const handlecreatuser = async()=>{
   }
 };
 
+//handle update
+const handleupdate = async()=>{
+   try{
+    setloading(true);
+
+    const response = await axios.put("http://localhost:4000/edituser",{
+      editid:useEditid,
+      username:username ? username : "",
+      firstname:firstname ? firstname : "",
+      lastname:lastname ? lastname : "",
+      email:email ? email : "",
+      isadmin:admin ? admin : 0
+    })
+
+    if(response && response?.data?.code == 200){
+      //
+       setSucessDisplay(true);
+       setSuccessMessage(response?.data?.message);
+       handleAllUsers();//fetch data
+       setTimeout(()=>{
+         setSucessDisplay(false);
+         setSuccessMessage("");
+       }, 3000);
+       handleClose();
+    }
+    
+   }catch(err:any){
+    if(err.response){
+      setErrorDisplay(true);
+      setErrorMessage(err.response?.data?.message);
+      setTimeout(()=>{
+       setErrorDisplay(false);
+       setErrorMessage("");
+     }, 3000);
+     handleClose();
+    }
+   }finally{
+    setloading(false);
+   }
+}
 
 //close function
  const handleClose = ()=>{
@@ -120,6 +177,7 @@ const handlecreatuser = async()=>{
     setResetpass("");
     setEmail("");
     setAdmin("");
+    seteditMode(false);
  }
 
   return (
@@ -208,7 +266,7 @@ const handlecreatuser = async()=>{
                 </div>
             </div>
 
-            <div className="w-full p-1 flex gap-2 mt-5">
+            {!editmode && <div className="w-full p-1 flex gap-2 mt-5">
                 <div className="w-1/2">
                         <Inputs 
                         type={showpass ? "text":"password"}
@@ -255,7 +313,7 @@ const handlecreatuser = async()=>{
                         />
                 </div>
 
-            </div>
+            </div>}
            
            {/*password checker*/}
             {passwordcheck !== null && (
@@ -310,7 +368,7 @@ const handlecreatuser = async()=>{
 
             <div className="w-full p-1 flex gap-2 mt-5">
                 <div className="w-full">
-                    <Button label="add user"
+                    {!editmode ? <Button label="add user"
                     styles="bg-cyan-300 p-2 w-full 
                     text-white rounded
                     flex justify-center
@@ -327,6 +385,22 @@ const handlecreatuser = async()=>{
                     loading={loading}
                     onSubmit={handlecreatuser}
                     />
+                     :
+                    <Button label="update user"
+                      styles="bg-cyan-600 p-2 w-full 
+                      text-white rounded
+                      flex justify-center
+                      "
+                      disabled={
+                          username === "" ||
+                          firstname === "" ||
+                          lastname === "" ||
+                          admin === "" ||
+                          (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+                      }
+                      loading={loading}
+                      onSubmit={handleupdate}
+                    />}
                 </div>
             </div>
        </div>

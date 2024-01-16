@@ -89,11 +89,11 @@ export const Home = () => {
        w-full h-[40vh] 
        mt-5 p-2 shadow-sm
        border-t-4 border-t-cyan-300
-       rounded grid lg:grid-cols-4
+       rounded grid lg:grid-cols-3
        gap-1
        ">
 
-         <div className="h-[18vh] shadow-lg border-t-4 
+         <div className="h-[30vh] shadow-lg border-t-4 
            border-cyan-700 rounded-sm hover:scale-y-110
            p-2
          ">
@@ -106,7 +106,7 @@ export const Home = () => {
 
          </div>
 
-         <div className="h-[18vh] p-2 shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
+         <div className="h-[30vh] p-2 shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
             <p>
               <span className="font-bold">Females:</span> 
               <span className="text-cyan-600 ml-2 font-bold">{totalfemale}</span>
@@ -114,7 +114,7 @@ export const Home = () => {
            <RoundedProgressBar progressFigure={totalfemale} centerLabel={totalfemale}/>
          </div>
 
-         <div className="h-[18vh] p-2 shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
+         <div className="h-[30vh] p-2 shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
             <p>
               <span className="font-bold">Males:</span> 
               <span className="text-cyan-600 ml-2 font-bold">{totalmale}</span>
@@ -122,31 +122,9 @@ export const Home = () => {
            <RoundedProgressBar progressFigure={totalmale} centerLabel={totalmale}/>
          </div>
 
-         <div className="h-[18vh] shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
-
-         </div>
-
-         {/*----------second four---------*/}
-
-         <div className="h-[18vh] shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
-
-         </div>
-
-         <div className="h-[18vh] shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
-
-         </div>
-
-         <div className="h-[18vh] shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
-
-         </div>
-
-         <div className="h-[18vh] shadow-lg border-t-4 border-cyan-700 rounded-sm hover:scale-y-110">
-
-         </div>
-
       </div>
 
-      {/* third division */}
+      {/* second division */}
       <div className="
         w-full h-[40vh] 
         mt-5 p-2 
