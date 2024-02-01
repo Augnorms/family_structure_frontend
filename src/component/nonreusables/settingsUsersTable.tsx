@@ -23,7 +23,7 @@ const SettingsUsersTable: React.FC = () => {
 
   const handleAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/getalluers");
+      const response = await axios.get(import.meta.env.VITE_GETALLUSERS);
 
       if (response && response?.data?.code === 200) {
 
@@ -80,7 +80,7 @@ const SettingsUsersTable: React.FC = () => {
   const handledelete = async()=>{
     try{
       
-      const response = await axios.post("http://localhost:4000/deleteuser", {
+      const response = await axios.post(import.meta.env.VITE_DELETEUSER, {
             deleteId: deleteid
       });
 

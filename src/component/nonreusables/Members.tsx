@@ -177,7 +177,7 @@ const country = [
 const handlecreation = async()=>{
    try{
     setloading(true);
-    const response = await axios.post("http://localhost:4000/createprofile", {
+    const response = await axios.post(import.meta.env.VITE_CREATPROFILE, {
       loginId:profiluserId,
       profilefirstname:profilefirstname,
       profilelastname:profilelastname,
@@ -226,7 +226,7 @@ const handlecreation = async()=>{
 const handleFetch = async()=>{
   try{
 
-    const response = await axios.post("http://localhost:4000/getuserprofile", {
+    const response = await axios.post(import.meta.env.VITE_GETUSERSPROFILE, {
       loginid:Number(profiluserId)
     });
 
@@ -262,7 +262,7 @@ useEffect(()=>{handleFetch()},[]);
 const handleupdate = async()=>{
   try{
     setloading(true);
-    const response = await axios.post("http://localhost:4000/updateuserprofile", {
+    const response = await axios.post(import.meta.env.VITE_UPDATEUSERSPROFILE, {
       loginId: profiluserId,
       profilefirstname: profilefirstname ? profilefirstname : "",
       profilelastname: profilelastname ? profilelastname : "",

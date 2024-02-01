@@ -64,7 +64,7 @@ const handleChild = (selected:any) => {
 const handlecreation = async()=>{
     try{
      setloading(true);
-      const response = await axios.post("http://localhost:4000/createrelationship",{
+      const response = await axios.post(import.meta.env.VITE_CREATERELATIONSHIP,{
         parent_id:parentid,
         child_ids:childid
       });

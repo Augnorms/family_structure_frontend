@@ -114,13 +114,13 @@ if(numberone && numbertwo && numberthree && numberfour && numberfive){
 
 },[numberone, numbertwo, numberthree, numberfour, numberfive])
 
-  
+
 
   const handleLogin = async () => {
     try {
       setLoading(true);
 
-      const response = await axios.post("http://localhost:4000/login", {
+      const response = await axios.post(import.meta.env.VITE_LOGIN, {
         username: username,
         password: password,
         rememberMe: keepmeloggedin === "keep me loggedin" ? true : false
@@ -169,7 +169,7 @@ const handleEmail = async()=>{
   try{
     setEmailLoading(true);
 
-   const response = await axios.post("http://localhost:4000/emailverification",{
+   const response = await axios.post(import.meta.env.VITE_EMAIL_VERIFICATION,{
     email:forgotpass
    });
 

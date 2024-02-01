@@ -32,6 +32,7 @@ import { DeleteComp } from "../component/reusables/nonformcomponent/DeleteComp";
 
 import axios from "axios";
 
+
 interface dashComponent {
   dashContentname: string;
   components: React.ReactElement; // Corrected the type to React.ReactElement
@@ -165,7 +166,7 @@ export const Dashboard = () => {
   const fetchallmembers = async()=>{
     try{
 
-      const response = await axios.get("http://localhost:4000/getallmembers");
+      const response = await axios.get(import.meta.env.VITE_GET_ALL_MEMBERS);
 
       if(response && response?.data?.code == 200){
         setReturnData(response?.data?.data);

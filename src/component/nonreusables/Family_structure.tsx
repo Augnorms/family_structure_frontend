@@ -23,7 +23,7 @@ export const Family_structure = () => {
       try{
         setLoading(true);
         
-        const response = await axios.get("http://localhost:4000/hierarchy");
+        const response = await axios.get(import.meta.env.VITE_HEIRARCHY);
 
         if(response && response?.data?.code === 200){
            setFamily(response?.data?.data);

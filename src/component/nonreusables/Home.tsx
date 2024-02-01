@@ -12,7 +12,7 @@ export const Home = () => {
   const handlemembercount = async()=>{
      try{
       setLoading(true);
-      const response = await axios.get("http://localhost:4000/allmemberscount");
+      const response = await axios.get(import.meta.env.VITE_ALLMEMBERCOUNT);
 
       if(response && response?.data.code == 200){
         setTotalmem(response?.data?.count);
@@ -29,7 +29,7 @@ export const Home = () => {
   const handlefemalecount = async()=>{
     try{
       setLoading(false);
-      const response = await axios.get("http://localhost:4000/allfemalecount");
+      const response = await axios.get(import.meta.env.VITE_ALLFEMALECOUNT);
 
       if(response && response?.data?.code === 200){
         setTotalfemale(response?.data?.count);
@@ -46,7 +46,7 @@ export const Home = () => {
   const handlemalecount = async()=>{
     try{
       setLoading(false);
-      const response = await axios.get("http://localhost:4000/allmales");
+      const response = await axios.get(import.meta.env.VITE_ALLMALECOUNT);
 
       if(response && response?.data?.code === 200){
         setTotalmale(response?.data?.count);

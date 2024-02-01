@@ -9,7 +9,7 @@ export const SettingsVerTable = () => {
 
   const handleverificationdata = async()=>{
     try{
-      const response = await axios.get("http://localhost:4000/getallverifications");
+      const response = await axios.get(import.meta.env.VITE_GETALLVERIFICATION);
 
       if (response && response?.data?.code === 200) {
 

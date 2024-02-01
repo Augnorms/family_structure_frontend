@@ -50,7 +50,7 @@ export const LoginResetPassForm = () => {
   const handleresetpassword = async()=>{
     try{
         setloading(true);
-      const response = await axios.put("http://localhost:4000/resetpassword",{
+      const response = await axios.put(import.meta.env.VITE_RESETPASSWORD,{
         password:repeatpassword,
         id:veificationUserid
       })

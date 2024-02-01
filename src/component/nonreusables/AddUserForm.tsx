@@ -72,7 +72,7 @@ const[loading, setloading] = useState<boolean>(false)
 //fetch all users upon user creation
 const handleAllUsers = async () => {
   try {
-    const response = await axios.get("http://localhost:4000/getalluers");
+    const response = await axios.get(import.meta.env.VITE_GETALLUSERS);
 
     if (response && response?.data?.code === 200) {
 
@@ -90,7 +90,7 @@ const handlecreatuser = async()=>{
   try{
      setloading(true);
 
-     const response = await axios.post("http://localhost:4000/createuser", {
+     const response = await axios.post(import.meta.env.VITE_CREATEUSER, {
       username: username,
       password:password,
       firstname:firstname,
@@ -131,7 +131,7 @@ const handleupdate = async()=>{
    try{
     setloading(true);
 
-    const response = await axios.put("http://localhost:4000/edituser",{
+    const response = await axios.put(import.meta.env.VITE_EDITUSER,{
       editid:useEditid,
       username:username ? username : "",
       firstname:firstname ? firstname : "",

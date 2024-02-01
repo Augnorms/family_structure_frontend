@@ -16,7 +16,7 @@ const [countdown, setCountdown] = useState<number>(0);
 
 
 useEffect(() => {
-  let intervalId: number;
+  let intervalId: NodeJS.Timeout;
 
   if (tokenExp > 0) {
     setCountdown(Math.floor(tokenExp / 1000));

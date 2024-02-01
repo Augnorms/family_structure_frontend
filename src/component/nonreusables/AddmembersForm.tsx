@@ -86,7 +86,7 @@ export const AddmembersForm = () => {
   const handledetail = async()=>{
      try{
 
-        const response = await axios.post("http://localhost:4000/fetchmemberbyid", {
+        const response = await axios.post(import.meta.env.VITE_FETCHMEMBERBYID, {
             refid:fammember
         });
 
@@ -182,7 +182,7 @@ const handleClear = ()=>{
 const handlecreation = async()=>{
     try{
         setLoadingcreation(true);
-        const response = await axios.post("http://localhost:4000/allmemmbers", {
+        const response = await axios.post(import.meta.env.VITE_ALLMEMBERS, {
             memuserId:id,
             mememail:mememail,
             memmother:memmother,
@@ -224,7 +224,7 @@ const handlecreation = async()=>{
 //fetch all members
 const handleallmembers = async()=>{
   try{
-   const response = await axios.get("http://localhost:4000/fetchallmembers"); 
+   const response = await axios.get(import.meta.env.VITE_FETCHALLMEMBERS); 
 
    if(response && response?.data?.code === 200){
     setMemData(response?.data?.data);
@@ -248,7 +248,7 @@ const handleupdate = async()=>{
    try{
     setLoadingupdate(true);
 
-     const response = await axios.put("http://localhost:4000/updatemember",{
+     const response = await axios.put(import.meta.env.VITE_UPDATEMEMBERS,{
         memuserId:valueid,
         mememail:mememail ? mememail : "",
         memmother:memmother ? memmother : "",
@@ -299,7 +299,7 @@ const handledelete = async()=>{
    try{
     setLoadindlete(true);
 
-    const response = await axios.post("http://localhost:4000/deletemember",{
+    const response = await axios.post(import.meta.env.VITE_DELETEMEMBER,{
        deleteid:deleteid
     });
 

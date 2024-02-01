@@ -42,7 +42,7 @@ const [loading, setLoading] = useState<boolean>(false);
  const handleSubmit = async()=>{
   try{
     setLoading(true);
-    const response = await axios.post("http://localhost:4000/creatmember", {
+    const response = await axios.post(import.meta.env.VITE_CREATEMEMBER, {
         name:name,
         gender:gender,
         dob:dob,
