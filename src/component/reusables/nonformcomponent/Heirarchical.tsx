@@ -10,7 +10,7 @@ interface Family {
 export const Heirarchical: React.FC<Family> = (props) => {
   const { id, label, children, handleClick } = props;
 
-  const handleDivClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleDivClick = (_event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (handleClick) {
       handleClick(id);
     }

@@ -1,5 +1,5 @@
 import { TbHierarchy3 } from "react-icons/tb";
-import { dashboardContext } from "../../contextApi/DasboardstatesContext"
+// import { dashboardContext } from "../../contextApi/DasboardstatesContext"
 import { useContext, useEffect, useState } from "react"
 import { FamilyContext } from "../../contextApi/FamilymembersContext"
 import { Heirarchical } from "../../component/reusables/nonformcomponent/Heirarchical";
@@ -13,15 +13,15 @@ interface Family{
 
 export const Family_structure = () => {
 
-  const {setDialogue} = useContext(dashboardContext);
+  // const {setDialogue} = useContext(dashboardContext);
   const {} = useContext(FamilyContext);
  
   const [family, setFamily] = useState<Family[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
 
   const handleRelationship = async()=>{
       try{
-        setLoading(true);
+        // setLoading(true);
         
         const response = await axios.get(import.meta.env.VITE_HEIRARCHY);
 
@@ -40,9 +40,9 @@ export const Family_structure = () => {
     handleRelationship();
   },[])
 
-  const handleClick = (id: number) => {
-    // Handle the click event here with the id
-  };
+  // const handleClick = (id: number) => {
+  //   // Handle the click event here with the id
+  // };
   
   return (
     <div className='w-full h-[92vh] p-2 overflow-auto'>
@@ -57,7 +57,7 @@ export const Family_structure = () => {
          
           {
           
-          family.length > 0 ? <Heirarchical {...family[0]} handleClick={handleClick}/>
+          family.length > 0 ? <Heirarchical {...family[0]} />
           :
            <>
              <div className="w-full flex justify-center shadow-md rounded">

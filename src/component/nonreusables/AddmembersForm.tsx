@@ -22,7 +22,7 @@ export const AddmembersForm = () => {
 
   const {returnData} = useContext(FamilyContext);
   const {memname, setMemname, memgender, setMemgender, memdateofbirth, setMemdateofbirth,
-         memhometown, setMemhometown, memIsUpdate, setMemIsUpdate, mememail, setMememail,
+         memhometown, setMemhometown, mememail, setMememail,
          memmother, setMemmother, memfather, setMemfather, memmaritalstatus, setMemmaritalstatus,
          memprimaryeducation, setMemprimaryeducation, memsecondaryeducation, setMemsecondaryeducation,
          memtertiaryeducation, setMemtertiaryeducation, memoccupation, setMemoccupation,

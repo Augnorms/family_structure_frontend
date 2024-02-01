@@ -7,11 +7,11 @@ export const Home = () => {
   const[totalmem, setTotalmem] = useState<number>(0);
   const[totalfemale, setTotalfemale] = useState<number>(0);
   const[totalmale, setTotalmale] = useState<number>(0);
-  const[loading, setLoading] = useState<boolean>(false);
+  // const[loading, setLoading] = useState<boolean>(false);
  
   const handlemembercount = async()=>{
      try{
-      setLoading(true);
+      // setLoading(true);
       const response = await axios.get(import.meta.env.VITE_ALLMEMBERCOUNT);
 
       if(response && response?.data.code == 200){
@@ -21,14 +21,14 @@ export const Home = () => {
      }catch(error:any){
        console.error(error.response); 
      }finally{
-      setLoading(false);
+      // setLoading(false);
      }
   }; 
 
   //handle female count
   const handlefemalecount = async()=>{
     try{
-      setLoading(false);
+      // setLoading(false);
       const response = await axios.get(import.meta.env.VITE_ALLFEMALECOUNT);
 
       if(response && response?.data?.code === 200){
@@ -38,14 +38,14 @@ export const Home = () => {
     }catch(err:any){
       console.error(err.response);
     }finally{
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
   //handle male count
   const handlemalecount = async()=>{
     try{
-      setLoading(false);
+      // setLoading(false);
       const response = await axios.get(import.meta.env.VITE_ALLMALECOUNT);
 
       if(response && response?.data?.code === 200){
@@ -55,7 +55,7 @@ export const Home = () => {
     }catch(err:any){
       console.error(err.response);
     }finally{
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

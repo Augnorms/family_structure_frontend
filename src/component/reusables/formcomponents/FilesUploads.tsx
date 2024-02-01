@@ -11,7 +11,7 @@ type FileInterface={
 
 export const FilesUploads = (props:FileInterface) => {
 
-    const [dragging, setDragging] = useState(false);
+    const [, setDragging] = useState(false);
     const [maxFile, setMaxfile] = useState<boolean>(false);
 
   const handleDragEnter = (event: React.DragEvent<HTMLInputElement>) => {

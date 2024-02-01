@@ -5,7 +5,7 @@ import { formatTime } from "../../HelperFunction/functions";
 import { Button } from "../reusables/formcomponents/Button";
 import  SettingsUsersTable  from "./settingsUsersTable";
 import { SettingsVerTable } from "./SettingsVerTable";
-import noEntry from "../reusables/assets/noEntry.svg";
+// import noEntry from "../reusables/assets/noEntry.svg";
 
 export const Settings = () => {
 
