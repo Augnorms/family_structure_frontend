@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../../../contextApi/LoginPictorialContext";
-import Mamaa from "../../../assets/Mamaa2.jpg";
+import Mamaa from "../../../assets/mamaa2.jpg";
 import Florence from "../../../assets/auntFlo.jpg";
 import James  from "../../../assets/james2.jpg";
 import Joe from "../../../assets/Joe.jpg";
