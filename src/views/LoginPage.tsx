@@ -1,6 +1,6 @@
 import { Loginpictorial } from "../component/reusables/nonformcomponent/Loginpictorial";
 import LoginImage from "../assets/login-bg-2.jpg";
-import Mamaa from "../assets/Mamaa2.jpg";
+import Mamaa from "../assets/mamaa2.jpg";
 import { LoginContext } from "../contextApi/LoginPictorialContext";
 import { loggedinInfoContext } from "../contextApi/LoggedInInforContext";
 import { useContext, useEffect, useState } from "react";
